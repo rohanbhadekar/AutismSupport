@@ -1,0 +1,232 @@
+{
+  "title": "Autism Support Website",
+  "nav": {
+    "home": "Home",
+    "aboutAutism": "About Autism",
+    "findCentre": "Find Center",
+    "homeActivities": "Activities at Home",
+    "socialStories": "Social Stories",
+    "helpfulToysTools": "Helpful Tools",
+    "govtSchemes": "Govt Schemes",
+    "contact": "Contact Us",
+    "homeActivitiesTitle": "Home Activities",
+    "homeActivitiesDescription": "Activities you can do at home to support your child's development.",
+    "socialStoriesTitle": "Social Stories",
+    "socialStoriesDescription": "Social stories to help children understand social situations and expectations.",
+    "helpfulToysToolsTitle": "Helpful Toys & Tools",
+    "helpfulToysToolsDescription": "A collection of toys and tools that can aid in the development of children with autism.",
+    "govtSchemesTitle": "Government Schemes",
+    "govtSchemesDescription": "Information about government schemes and support available for families with children on the autism spectrum.",
+    "homeTitle": "Welcome to the Autism Support Website",
+    "homeDescription": "This platform is dedicated to providing resources and support for families and children with autism.",
+    "aboutTitle": "About Autism",
+    "aboutDescription": "Autism is a developmental disorder that affects communication and behavior.",
+    "contactTitle": "Contact Us",
+    "findCentresPurpose": "Map / directory filtered by city, service",
+    "homeActivitiesEmoji": "🏡",
+    "socialStoriesEmoji": "📖",
+    "helpfulToysToolsEmoji": "🧸",
+    "govtSchemesEmoji": "🏛️",
+    "findCentreEmoji": "📍",
+    "learnMore": "Learn More 👉",
+    "aboutAutismEmoji": "🧠",
+    "homeEmoji": "🏠",
+    "contactEmoji": "📞"
+  },
+
+  "rights_reserved": "All rights reserved",
+  "featuresTitle": "Helpful Features",
+  "findCenterHelpTitle": "Need Help Finding a Center Near You?",
+  "findCenterHelpIntro": "Finding the right support can be hard — but Google can make it easier.",
+  "findCenterStep1": "Open Google Maps or Google.com on your phone or computer.",
+  "findCenterStep2": "Search for terms like 'Autism therapy center near me', 'Speech therapy in [your city]'.",
+  "findCenterStep3": "Look for good ratings, contact info, and services like ABA, OT, or speech therapy.",
+  "findCenterLinkText": "Start exploring on Google Maps",
+
+  "next": "Next",
+  "back": "Back",
+  "terms": "Common Terms Associated with Autism Spectrum",
+  "WhyMatters": "Why It Matters",
+  "Example": "Example",
+  "aboutAutismSteps": [
+    {
+      "title": "🧠 What is Autism?",
+      "text": "Autism is a developmental condition that affects how a child communicates, learns, behaves, and interacts with others. Every child with autism is different – it’s called a “spectrum” because it includes a wide range of strengths and challenges."
+    },
+    {
+      "title": "🧠 Autism is a Difference, Not a Disease",
+      "points": [
+        "Autism is not a disease. It’s a neurological difference.",
+        "Children with autism may see, hear, feel, and interact with the world differently than others.",
+        "With love, patience, and support, many children on the autism spectrum grow up to live happy and meaningful lives."
+      ]
+    },
+    {
+      "title": "🧩 Common Signs of Autism in Children",
+      "text": "Here are some early signs parents might observe in children with autism."
+    },
+    {
+      "title": "👁️ Social & Communication Differences",
+      "points": [
+        "Limited eye contact or facial expressions",
+        "Delay in speaking or not speaking at all",
+        "Doesn’t respond to their name",
+        "Prefers to play alone, doesn’t join group play",
+        "May not understand gestures, tone of voice, or facial cues"
+      ]
+    },
+    {
+      "title": "🔄 Repetitive Behavior",
+      "points": [
+        "Repeats certain actions or words again and again (stimming)",
+        "Has strict routines or gets upset by small changes",
+        "Shows strong interest in specific topics, objects, or activities"
+      ]
+    },
+    {
+      "title": "👂 Sensory Sensitivities",
+      "points": [
+        "Very sensitive to sounds, lights, touch, or smells",
+        "May react strongly to textures or certain foods"
+      ]
+    },
+    {
+      "title": "💛 Remember",
+      "points": [
+        "Autism is not anyone’s fault – it is just a different way of growing up.",
+        "Early support can make a big difference.",
+        "Your love, understanding, and patience are the most powerful tools in helping your child."
+      ]
+    },
+    {
+      "title": "📺 Helpful Video",
+      "points": [
+        "<a style='color:#2563eb; text-decoration:underline;' href=\"https://www.youtube.com/watch?v=hwaaphuStxY\">What is Autism? | Cincinnati Children’s</a>.",
+        "<a style='color:#2563eb; text-decoration:underline;' href=\"https://www.youtube.com/watch?v=aPknwW8mPAM\">Can you make it to the end? – National Autistic Society</a>",
+        "<a style='color:#2563eb; text-decoration:underline;' href=\"https://www.youtube.com/watch?v=FGTcXAgzxWw\">Signs of Autism in Children – Speech and Language Kids</a>"
+      ]
+    }
+  ],
+  "AutismTerms": [
+    {
+      "title": "Fine Motor Skills",
+      "text": "Movements using small muscles of the hands and fingers.",
+      "Why it matters": "Helps in daily tasks like writing, dressing, and picking up small objects.",
+      "Example": "Holding a crayon, buttoning a shirt."
+    },
+    {
+      "title": "Gross Motor Skills",
+      "text": "Movements involving large muscle groups — such as legs, arms, and core.",
+      "Why it matters": "These help with balance, posture, and overall physical development.",
+      "Example": "Running, jumping, climbing stairs."
+    },
+    {
+      "title": "Sensory Play",
+      "text": "Activities that stimulate the senses — touch, smell, sight, sound, and movement.",
+      "Why it matters": "Helps children regulate their sensory input and stay calm.",
+      "Example": "Playing with sand, water, textured balls."
+    },
+    {
+      "title": "Visual Schedule",
+      "text": "A picture-based routine to help children know what’s next.",
+      "Why it matters": "Provides structure, reduces anxiety, and improves understanding.",
+      "Example": "A chart showing ‘Brush teeth → Eat breakfast → School’."
+    },
+    {
+      "title": "Stimming",
+      "text": "Repetitive behaviors used to self-regulate emotions or focus.",
+      "Why it matters": "It's a natural way many autistic individuals calm themselves.",
+      "Example": "Hand flapping, spinning, repeating words or sounds."
+    }
+  ],
+  "hero": {
+    "heading": "Together, We Thrive",
+    "intro": "Created by parents, for parents—this platform unites India’s autism resources in one place. From regional-language guides and therapy center listings to practical tools, everything here is designed to help you spend less time searching and more time supporting your child’s journey."
+  },
+
+  "features": {
+    "saveTime": {
+      "emoji": "⏱️",
+      "title": "Save Precious Time",
+      "desc": "Curated resources in minutes—not hours."
+    },
+    "regionalLang": {
+      "emoji": "🗣️",
+      "title": "Regional Languages",
+      "desc": "Guides in Marathi, Hindi & English."
+    },
+    "centreFinder": {
+      "emoji": "📍",
+      "title": "Centre-Finder",
+      "desc": "Locate therapy centres near you."
+    },
+    "parentToolkits": {
+      "emoji": "🛠️",
+      "title": "Parent Toolkits",
+      "desc": "Practical techniques for everyday challenges."
+    },
+    "awarenessHub": {
+      "emoji": "📣",
+      "title": "Awareness Hub",
+      "desc": "Articles & infographics to share."
+    }
+  },
+
+  "centreFinder": {
+    "heading": "Find a Centre Near You",
+    "placeholder": "Enter PIN code",
+    "button": "Search",
+    "alert": "Searching centres near {{pincode}}…"
+  },
+  "contactUS": {
+    "heading": "We’re here to help",
+    "intro": "Whether you’re looking for guidance, want to suggest a resource, or just need a listening ear, reach out — we respond within 24 hours on weekdays.",
+    "emailLabel": "Email",
+    "phoneLabel": "Phone (10 AM – 6 PM IST)",
+    "whatsappLabel": "WhatsApp",
+    "addressLabel": "Registered Address",
+    "formTitle": "Send us a message",
+    "formNamePlaceholder": "Your Name",
+    "formEmailPlaceholder": "Your Email",
+    "formMessagePlaceholder": "How can we help?",
+    "buttonSend": "Send Message",
+    "responseNote": "We’ll get back to you as soon as possible. For urgent matters, please call or WhatsApp us."
+  },
+  "resourcesContent": {
+    "heading": "Empower Every Autism Journey",
+    "search": "Search…",
+    "loading": "Loading…",
+    "noMatch": "No resources found.",
+    "categories": {
+      "all": "All",
+      "support": "Support Groups",
+      "helpline": "Helplines",
+      "government": "Schemes",
+      "tools": "Tools & Apps",
+      "videos": "Videos"
+    }
+  },
+  "udidGuide": {
+    "title": "UDID (Unique Disability ID) Application Guide",
+    "whatIs": "UDID is a digital ID card issued by the Government of India for individuals with disabilities. It centralizes disability data and enables access to multiple schemes and benefits.",
+    "benefits": [
+      "Single national ID for all disability-related services.",
+      "Required for most schemes (Niramaya, Samarth, pension, etc.).",
+      "Tracks history and benefits across states and programs."
+    ],
+    "eligibility": "Medical certification of disability (including Autism Spectrum Disorder under RPWD Act 2016).",
+    "howToApply": [
+      "Visit the official UDID portal: https://www.swavlambancard.gov.in",
+      "Register using Aadhaar, contact info, and upload medical certificate.",
+      "Fill disability details and attach supporting documents (photo, ID).",
+      "Submit and track status online.",
+      "After medical board verification, digital & physical UDID card is issued."
+    ]
+  },
+  "Overview": "Overview",
+  "Benefits": "Benefits",
+  "Eligibility": "Eligibility",
+  "How to Apply": "How to Apply",
+  "How to Avail": "How to Avail",
+  "Government Schemes": "Government Schemes"
+}

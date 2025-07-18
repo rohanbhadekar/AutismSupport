@@ -1,0 +1,47 @@
+{
+  "title": "Autism Support Website",
+  "home": "Home",
+  "about": "About Autism",
+  "contact": "Contact Us",
+  "resources": "Resources",
+  "home_title": "Welcome to the Autism Support Website",
+  "home_description": "This platform is dedicated to providing resources and support for families and children with autism.",
+  "about_title": "About Autism",
+  "about_description": "Autism is a developmental disorder that affects communication and behavior.",
+  "contact_title": "Contact Us",
+  "contact_description": "If you have any questions or need support, please reach out to us.",
+  "resources_title": "Resources for Autism Support",
+  "resources_description": "Here you can find various resources to help support individuals with autism.",
+  "rights_reserved": "All rights reserved",
+   "aboutAutismTitle": "About Autism (Autism Spectrum Disorder)",
+  "whatIsAutism": "Autism is a developmental condition that affects how a child communicates, learns, behaves, and interacts with others. Every child with autism is different – it’s called a “spectrum” because it includes a wide range of strengths and challenges.",
+  "autismNotDisease": "Autism is not a disease. It’s a neurological difference.",
+  "autismBehavior": "Children with autism may see, hear, feel, and interact with the world differently than others.",
+  "earlySupport": "With love, patience, and support, many children on the autism spectrum grow up to live happy and meaningful lives.",
+  "commonSigns": "Common Signs of Autism in Children",
+  "socialCommunication": "Social & Communication",
+  "socialPoints": [
+    "Limited eye contact or facial expressions",
+    "Delay in speaking or not speaking at all",
+    "Doesn’t respond to their name",
+    "Prefers to play alone, doesn’t join group play",
+    "May not understand gestures, tone of voice, or facial cues"
+  ],
+  "repetitiveBehavior": "Repetitive Behavior",
+  "repetitivePoints": [
+    "Repeats certain actions or words again and again (stimming)",
+    "Has strict routines or gets upset by small changes",
+    "Shows strong interest in specific topics, objects, or activities"
+  ],
+  "sensorySensitivity": "Sensory Sensitivities",
+  "sensoryPoints": [
+    "Very sensitive to sounds, lights, touch, or smells",
+    "May react strongly to textures or certain foods"
+  ],
+  "rememberTitle": "Remember:",
+  "rememberPoints": [
+    "Autism is not anyone’s fault – it is just a different way of growing up.",
+    "Early support can make a big difference.",
+    "Your love, understanding, and patience are the most powerful tools in helping your child."
+  ]
+}
