@@ -10,28 +10,52 @@ const Header = () => {
   const toggleMenu = () => setMenuOpen(!menuOpen);
 
   const linkClasses = ({ isActive }) =>
-  `block text-sm font-medium px-4 py-2 rounded transition-all ${
-    isActive ? "text-blue-700 bg-blue-100" : "text-gray-700 hover:bg-gray-100"
-  }`;
+    `block text-sm font-medium px-4 py-2 rounded transition-all ${
+      isActive ? "text-blue-700 bg-blue-100" : "text-gray-700 hover:bg-gray-100"
+    }`;
 
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng);
   };
 
   return (
-  <header className="bg-[#fbfaf7] shadow-md border-b">
+    <header className="bg-[#fbfaf7] shadow-md border-b">
       <div className="max-w-screen-xl mx-auto px-4 py-3 flex items-center justify-between">
-        
         {/* Logo + Hamburger */}
         <div className="flex items-center gap-4">
-          <img src={Logo} alt="Parenting Autism Together"  className="max-h-24 sm:max-h-28 w-auto object-contain p-1 sm:p-2" />
-          <button
-            onClick={toggleMenu}
-            className="block lg:hidden text-2xl focus:outline-none"
-            aria-label="Toggle Menu"
-          >
-            ☰
-          </button>
+          <img
+            src={Logo}
+            alt="Parenting Autism Together"
+            className="h-12 sm:h-16 w-auto object-contain p-1"
+          />
+
+          <div className="flex items-center">
+            {/* Hamburger */}
+            <button
+              onClick={toggleMenu}
+              className="p-2 focus:outline-none sm:hidden"
+              aria-label="Open menu"
+            >
+              <svg
+                className="h-6 w-6 text-gray-700"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={2}
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              </svg>
+            </button>
+
+            {/* Tiny brand label ‑‑ mobile only */}
+            <span className="ml-2 text-base font-semibold tracking-wide text-blue-800 sm:hidden">
+              Parenting Autism Together
+            </span>
+          </div>
         </div>
 
         {/* Desktop Navigation */}
@@ -43,7 +67,8 @@ const Header = () => {
             <span>{t("nav.aboutAutismEmoji")}</span> {t("nav.aboutAutism")}
           </NavLink>
           <NavLink to="/home-activities" className={linkClasses}>
-            <span>{t("nav.homeActivitiesEmoji")}</span> {t("nav.homeActivities")}
+            <span>{t("nav.homeActivitiesEmoji")}</span>{" "}
+            {t("nav.homeActivities")}
           </NavLink>
           <NavLink to="/social-stories" className={linkClasses}>
             <span>{t("nav.socialStoriesEmoji")}</span> {t("nav.socialStories")}
@@ -52,7 +77,8 @@ const Header = () => {
             <span>{t("nav.govtSchemesEmoji")}</span> {t("nav.govtSchemes")}
           </NavLink>
           <NavLink to="/helpful-toys-tools" className={linkClasses}>
-            <span>{t("nav.helpfulToysToolsEmoji")}</span> {t("nav.helpfulToysTools")}
+            <span>{t("nav.helpfulToysToolsEmoji")}</span>{" "}
+            {t("nav.helpfulToysTools")}
           </NavLink>
           <NavLink to="/contact" className={linkClasses}>
             <span>{t("nav.contactEmoji")}</span> {t("nav.contact")}
@@ -61,9 +87,24 @@ const Header = () => {
 
         {/* Language Switcher */}
         <div className="hidden lg:flex gap-2 items-center ml-4">
-          <button onClick={() => changeLanguage("en")} className="text-sm hover:underline">EN</button>
-          <button onClick={() => changeLanguage("hi")} className="text-sm hover:underline">हिंदी</button>
-          <button onClick={() => changeLanguage("mr")} className="text-sm hover:underline">म</button>
+          <button
+            onClick={() => changeLanguage("en")}
+            className="text-sm hover:underline"
+          >
+            EN
+          </button>
+          <button
+            onClick={() => changeLanguage("hi")}
+            className="text-sm hover:underline"
+          >
+            हिंदी
+          </button>
+          <button
+            onClick={() => changeLanguage("mr")}
+            className="text-sm hover:underline"
+          >
+            म
+          </button>
         </div>
       </div>
 
@@ -71,32 +112,75 @@ const Header = () => {
       {menuOpen && (
         <div className="lg:hidden px-4 pb-4">
           <nav className="flex flex-col gap-2">
-            <NavLink to="/" className={linkClasses} onClick={() => setMenuOpen(false)}>
+            <NavLink
+              to="/"
+              className={linkClasses}
+              onClick={() => setMenuOpen(false)}
+            >
               {t("nav.home")}
             </NavLink>
-            <NavLink to="/about" className={linkClasses} onClick={() => setMenuOpen(false)}>
+            <NavLink
+              to="/about"
+              className={linkClasses}
+              onClick={() => setMenuOpen(false)}
+            >
               {t("nav.aboutAutism")}
             </NavLink>
-            <NavLink to="/home-activities" className={linkClasses} onClick={() => setMenuOpen(false)}>
+            <NavLink
+              to="/home-activities"
+              className={linkClasses}
+              onClick={() => setMenuOpen(false)}
+            >
               {t("nav.homeActivities")}
             </NavLink>
-            <NavLink to="/social-stories" className={linkClasses} onClick={() => setMenuOpen(false)}>
+            <NavLink
+              to="/social-stories"
+              className={linkClasses}
+              onClick={() => setMenuOpen(false)}
+            >
               {t("nav.socialStories")}
             </NavLink>
-            <NavLink to="/govt-schemes" className={linkClasses} onClick={() => setMenuOpen(false)}>
+            <NavLink
+              to="/govt-schemes"
+              className={linkClasses}
+              onClick={() => setMenuOpen(false)}
+            >
               {t("nav.govtSchemes")}
             </NavLink>
-            <NavLink to="/helpful-toys-tools" className={linkClasses} onClick={() => setMenuOpen(false)}>
+            <NavLink
+              to="/helpful-toys-tools"
+              className={linkClasses}
+              onClick={() => setMenuOpen(false)}
+            >
               {t("nav.helpfulToysTools")}
             </NavLink>
-            <NavLink to="/contact" className={linkClasses} onClick={() => setMenuOpen(false)}>
+            <NavLink
+              to="/contact"
+              className={linkClasses}
+              onClick={() => setMenuOpen(false)}
+            >
               {t("nav.contact")}
             </NavLink>
             {/* Mobile Language Switcher */}
             <div className="mt-2 flex gap-4">
-              <button onClick={() => changeLanguage("en")} className="text-sm hover:underline">EN</button>
-              <button onClick={() => changeLanguage("hi")} className="text-sm hover:underline">हिंदी</button>
-              <button onClick={() => changeLanguage("mr")} className="text-sm hover:underline">म</button>
+              <button
+                onClick={() => changeLanguage("en")}
+                className="text-sm hover:underline"
+              >
+                EN
+              </button>
+              <button
+                onClick={() => changeLanguage("hi")}
+                className="text-sm hover:underline"
+              >
+                हिंदी
+              </button>
+              <button
+                onClick={() => changeLanguage("mr")}
+                className="text-sm hover:underline"
+              >
+                म
+              </button>
             </div>
           </nav>
         </div>
