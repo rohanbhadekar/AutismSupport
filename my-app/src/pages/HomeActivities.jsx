@@ -10,7 +10,7 @@ const HomeActivities = () => {
   const [activities, setActivities] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:8081/activities?lang=${lang}`)
+    fetch(`https://go-xmji.onrender.com/activities?lang=${lang}`)
       .then((res) => res.json())
       .then((data) => setActivities(data))
       .catch((err) => console.error("API error:", err));
