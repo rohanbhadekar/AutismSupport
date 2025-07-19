@@ -1,0 +1,160 @@
+package main
+
+import (
+	"encoding/json"
+	"fmt"
+	"log"
+	"net/http"
+	"os"
+
+	"github.com/gorilla/mux"
+	"github.com/jmoiron/sqlx"
+	"github.com/joho/godotenv"
+	"github.com/lib/pq"
+	"github.com/rs/cors"
+)
+
+type Material struct {
+	ID   int    `db:"id" json:"id"`
+	Name string `db:"name" json:"name"`
+}
+type Activity struct {
+	ID          int                 `db:"id" json:"id"`
+	Slug        string              `db:"slug" json:"slug"`
+	Title       string              `db:"title" json:"title"`
+	Overview    string              `db:"overview" json:"overview"`
+	ImagePrompt string              `db:"image_prompt" json:"image_prompt"`
+	SafetyNote  string              `db:"safety_note" json:"safety_note"`
+	TimeMin     int                 `db:"time_min" json:"time_min"`
+	TimeMax     int                 `db:"time_max" json:"time_max"`
+	AgeMin      int                 `db:"age_min" json:"age_min"`
+	AgeMax      int                 `db:"age_max" json:"age_max"`
+	Materials   []string            `db:"materials" json:"materials"`
+	Skills      []string            `db:"skills" json:"skills"`
+	Steps       map[string][]string `db:"steps" json:"steps"` // ✅ JSONB decoded into map
+	ImageURLs   []string            `db:"image_urls" json:"image_urls"`
+	CreatedAt   string              `db:"created_at" json:"created_at"`
+	UpdatedAt   *string             `db:"updated_at" json:"updated_at"`
+}
+
+var db *sqlx.DB
+
+func getMaterials(w http.ResponseWriter, r *http.Request) {
+	var materials []Material
+	err := db.Select(&materials, "SELECT * FROM get_all_materials_fn()")
+	if err != nil {
+		http.Error(w, "DB error", http.StatusInternalServerError)
+		return
+	}
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(materials)
+}
+
+func createMaterial(w http.ResponseWriter, r *http.Request) {
+	var material Material
+	_ = json.NewDecoder(r.Body).Decode(&material)
+	_, err := db.Exec("CALL insert_material_proc($1)", material)
+
+	if err != nil {
+		http.Error(w, "DB error", http.StatusInternalServerError)
+		return
+	}
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(material)
+}
+
+func deleteMaterial(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id := vars["id"]
+	_, err := db.Exec("CALL delete_material_proc($1)", id)
+	if err != nil {
+		http.Error(w, "DB error", http.StatusInternalServerError)
+		return
+	}
+	w.WriteHeader(http.StatusNoContent)
+}
+
+func getActivities(w http.ResponseWriter, r *http.Request) {
+	// Optional: Get language code from query params
+	lang := r.URL.Query().Get("lang")
+	if lang == "" {
+		lang = "en"
+	}
+
+	rows, err := db.Queryx("SELECT * FROM get_home_activities_table($1)", "en")
+	if err != nil {
+		http.Error(w, "DB error: "+err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	var activities []Activity
+	for rows.Next() {
+		var a Activity
+		var stepsJSON []byte
+
+		err := rows.Scan(
+			&a.ID,
+			&a.Slug,
+			&a.Title,
+			&a.Overview,
+			&a.ImagePrompt,
+			&a.SafetyNote,
+			&a.TimeMin,
+			&a.TimeMax,
+			&a.AgeMin,
+			&a.AgeMax,
+			pq.Array(&a.Materials),
+			pq.Array(&a.Skills),
+			&stepsJSON, // ✅ JSONB column as []byte
+			pq.Array(&a.ImageURLs),
+			&a.CreatedAt,
+			&a.UpdatedAt,
+		)
+		if err != nil {
+			http.Error(w, "Scan error: "+err.Error(), http.StatusInternalServerError)
+			return
+		}
+		activities = append(activities, a)
+	}
+
+	// Set response as JSON
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(activities)
+}
+func main() {
+		err := godotenv.Load()
+		if err != nil {
+			log.Fatalln("Error loading .env file")
+		}
+
+	// environment variables घ्या
+	dbHost := os.Getenv("DB_HOST")
+	dbPort := os.Getenv("DB_PORT")
+	dbUser := os.Getenv("DB_USER")
+	dbPass := os.Getenv("DB_PASSWORD")
+	dbName := os.Getenv("DB_NAME")
+
+	dsn := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
+		dbHost, dbPort, dbUser, dbPass, dbName)
+
+	db, err = sqlx.Connect("postgres", dsn)
+	if err != nil {
+		log.Fatalln("DB Connection Failed:", err)
+	}
+
+	router := mux.NewRouter()
+
+	router.HandleFunc("/activities", getActivities).Methods("GET")
+	router.HandleFunc("/materials", getMaterials).Methods("GET")
+	router.HandleFunc("/materials", createMaterial).Methods("POST")
+	router.HandleFunc("/materials/{id}", deleteMaterial).Methods("DELETE")
+	// Add CORS middleware
+	corsHandler := cors.New(cors.Options{
+		AllowedOrigins:   []string{"*"}, // Allow all origins
+		AllowedMethods:   []string{"GET", "POST", "DELETE"},
+		AllowedHeaders:   []string{"Content-Type"},
+		AllowCredentials: true,
+	}).Handler(router)
+	fmt.Println("Running on http://localhost:8081")
+	log.Fatal(http.ListenAndServe(":8081", corsHandler))
+}

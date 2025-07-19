@@ -27,7 +27,7 @@ export default function AboutAutism() {
             {current.title}
           </h2>
           <div className="text-sm text-gray-500">
-            {t("step")} {step + 1} / {steps.length}
+             {step + 1} / {steps.length}
           </div>
         </div>
 
