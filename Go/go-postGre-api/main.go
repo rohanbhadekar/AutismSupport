@@ -54,14 +54,11 @@ func main() {
 	mux.HandleFunc("/activities", getActivitiesJSON)
 	mux.HandleFunc("/government-schemes", getGovernmentSchemesJSON)
 
-	origins := []string{"http://localhost:3000"}
-	if os.Getenv("ENV") == "production" {
-		origins = append(origins, "https://react-learning-wheat-pi.vercel.app/")
-	}
+	// Add CORS middleware
 	handler := cors.New(cors.Options{
-		AllowedOrigins:   origins,
-		AllowedMethods:   []string{"GET", "POST", "OPTIONS"},
-		AllowedHeaders:   []string{"Content-Type", "Authorization"},
+		AllowedOrigins:   []string{"https://react-learning-wheat-pi.vercel.app/"},
+		AllowedMethods:   []string{"GET", "OPTIONS"},
+		AllowedHeaders:   []string{"Content-Type"},
 		AllowCredentials: true,
 	}).Handler(mux)
 
