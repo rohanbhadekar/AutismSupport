@@ -117,48 +117,48 @@ const Header = () => {
               className={linkClasses}
               onClick={() => setMenuOpen(false)}
             >
-              {t("nav.home")}
+              <span>{t("nav.homeEmoji")}</span> {t("nav.home")}
             </NavLink>
             <NavLink
               to="/about"
               className={linkClasses}
               onClick={() => setMenuOpen(false)}
             >
-              {t("nav.aboutAutism")}
+              <span>{t("nav.aboutAutismEmoji")}</span> {t("nav.aboutAutism")}
             </NavLink>
             <NavLink
               to="/home-activities"
               className={linkClasses}
               onClick={() => setMenuOpen(false)}
             >
-              {t("nav.homeActivities")}
+              <span>{t("nav.homeActivitiesEmoji")}</span> {t("nav.homeActivities")}
             </NavLink>
             <NavLink
               to="/social-stories"
               className={linkClasses}
               onClick={() => setMenuOpen(false)}
             >
-              {t("nav.socialStories")}
+              <span>{t("nav.socialStoriesEmoji")}</span> {t("nav.socialStories")}
             </NavLink>
             <NavLink
               to="/govt-schemes"
               className={linkClasses}
               onClick={() => setMenuOpen(false)}
             >
-              {t("nav.govtSchemes")}
+              <span>{t("nav.govtSchemesEmoji")}</span> {t("nav.govtSchemes")}
             </NavLink>
             <NavLink
               to="/helpful-toys-tools"
               className={linkClasses}
               onClick={() => setMenuOpen(false)}
             >
-              {t("nav.helpfulToysTools")}
+              <span>{t("nav.helpfulToysToolsEmoji")}</span> {t("nav.helpfulToysTools")}
             </NavLink>
             <NavLink
               to="/contact"
               className={linkClasses}
               onClick={() => setMenuOpen(false)}
-            >
+            > <span>{t("nav.contactEmoji")}</span>
               {t("nav.contact")}
             </NavLink>
             {/* Mobile Language Switcher */}
