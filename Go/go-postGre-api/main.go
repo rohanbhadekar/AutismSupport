@@ -56,7 +56,9 @@ func main() {
 
 	// Add CORS middleware
 	handler := cors.New(cors.Options{
-		AllowedOrigins:   []string{"https://react-learning-wheat-pi.vercel.app/"},
+		AllowedOrigins: []string{
+			"http://localhost:3000",                       // local dev
+			"https://react-learning-wheat-pi.vercel.app"}, // deployed React/Vercel
 		AllowedMethods:   []string{"GET", "OPTIONS"},
 		AllowedHeaders:   []string{"Content-Type"},
 		AllowCredentials: true,
