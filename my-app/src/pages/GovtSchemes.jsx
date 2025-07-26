@@ -10,7 +10,9 @@ export default function GovtSchemes() {
   const [showUDID, setShowUDID] = useState(true);
 
   useEffect(() => {
-    fetch(`https://go-xmji.onrender.com/government-schemes?lang=${lang}`)
+    const baseUrl = process.env.REACT_APP_API_BASE_URL;
+    console.log("Fetching government schemes from:", `${baseUrl}government-schemes?lang=${lang}`);
+    fetch(`${baseUrl}/government-schemes?lang=${lang}`)
       .then((res) => res.json())
       .then(setSchemes)
       .catch(console.error);
