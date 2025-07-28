@@ -1,6 +1,12 @@
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-
+import { Helmet } from "react-helmet";
+<Helmet>
+  <title>Parenting Autism Together | Support for Indian Parents</title>
+  <meta name="description" content="Explore resources, activities, and government schemes for autism parenting in India. Available in Marathi, Hindi, and English." />
+  <meta name="keywords" content="Autism, Parenting, India, Activities, Government Schemes, Marathi, Hindi, English" />
+  <link rel="canonical" href="https://parentingautismtogether.in/" />
+</Helmet>
 // Home page now fully internationalised: every user‑facing string is pulled from
 // translation.json via i18next.  No extra UI libraries—still plain JSX + Tailwind.
 
