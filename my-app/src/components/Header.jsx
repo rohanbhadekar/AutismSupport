@@ -29,7 +29,14 @@ const Header = () => {
             className="h-12 sm:h-16 w-auto object-contain p-1"
           />
 
-          <div className="flex items-center">
+          
+
+            {/* Tiny brand label ‑‑ mobile only */}
+            <span className="ml-2 text-base font-semibold tracking-wide text-blue-800 sm:hidden">
+              Parenting Autism Together
+            </span>
+            <div className="flex items-right gap-2">
+
             {/* Hamburger */}
             <button
               onClick={toggleMenu}
@@ -50,11 +57,6 @@ const Header = () => {
                 />
               </svg>
             </button>
-
-            {/* Tiny brand label ‑‑ mobile only */}
-            <span className="ml-2 text-base font-semibold tracking-wide text-blue-800 sm:hidden">
-              Parenting Autism Together
-            </span>
           </div>
         </div>
 
