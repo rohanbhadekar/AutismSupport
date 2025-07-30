@@ -37,7 +37,11 @@ app.get('/government-schemes', async (req, res) => {
   }
 });
 
+app.get('/ping', (req, res) => {
+  res.send('Api is running');
+});
+
 const PORT = process.env.PORT || 8081;
 app.listen(PORT, () => {
-  console.log(`Backend running at http://localhost:${PORT}`);
+  console.log(`✅ Server running on port ${PORT}`);
 });
