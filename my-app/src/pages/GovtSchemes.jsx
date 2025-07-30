@@ -46,7 +46,7 @@ export default function GovtSchemes() {
 
             <div>
               <h3 className="text-lg font-semibold text-blue-700 mb-2">
-                ✅ {t("Benefits")}
+                ✅ {t("Govt-Schemes.Benefits")}
               </h3>
               <ul className="list-disc list-inside pl-4 space-y-1 text-gray-700">
                 {udid.benefits.map((b, i) => (
@@ -57,14 +57,14 @@ export default function GovtSchemes() {
 
             <div>
               <h3 className="text-lg font-semibold text-blue-700 mb-2">
-                📌 {t("Eligibility")}
+                📌 {t("Govt-Schemes.Eligibility")}
               </h3>
               <p>{udid.eligibility}</p>
             </div>
 
             <div>
               <h3 className="text-lg font-semibold text-blue-700 mb-2">
-                📝 {t("How to Apply")}
+                📝 {t("Govt-Schemes.How to Apply")}
               </h3>
               <ol className="list-decimal list-inside pl-4 space-y-1">
                 {udid.howToApply.map((step, i) => (
