@@ -1,4 +1,6 @@
 export function splitPreservingLinks(text) {
+  if (typeof text !== 'string') return [];
+
   const parts = [];
   const sentences = text.split('.');
 

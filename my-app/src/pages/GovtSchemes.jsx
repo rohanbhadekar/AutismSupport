@@ -17,10 +17,13 @@ export default function GovtSchemes() {
 
   useEffect(() => {
     const baseUrl = process.env.REACT_APP_API_BASE_URL;
-    console.log("Fetching government schemes from:", `${baseUrl}government-schemes?lang=${lang}`);
+    console.log("Fetching government schemes from:", `${baseUrl}/government-schemes?lang=${lang}`);
     fetch(`${baseUrl}/government-schemes?lang=${lang}`)
       .then((res) => res.json())
-      .then(setSchemes)
+      .then((data) => {
+        console.log("Fetched government schemes:", data);
+        setSchemes(data);
+      })
       .catch(console.error);
   }, [lang]);
 
@@ -75,42 +78,50 @@ export default function GovtSchemes() {
       </section>
 
       {/* ✅ Government Schemes Section */}
-      <section>
-        <h2 className="text-2xl font-bold text-green-800 mb-6">
-          🏛️ {t("Government Schemes")}
-        </h2>
+       <section className="px-4 py-6 max-w-6xl mx-auto">
+      <h2 className="text-2xl sm:text-3xl font-bold text-green-700 mb-6">
+        🏛️ Government Schemes
+      </h2>
 
-        <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-6">
-          {Array.isArray(schemes) &&
-            schemes.map((s, idx) => (
-              <div
-                key={idx}
-                className="bg-white border rounded-lg shadow-md p-6 hover:shadow-lg transition"
-              >
-                <h3 className="text-xl font-semibold text-blue-900 mb-2">
-                  {s.Name}
-                </h3>
-                <p className="text-gray-800 mb-2">
-                  <strong>{t("Overview")}:</strong> {s.Overview}
-                </p>
-                <p className="text-gray-800 mb-2">
-                  <strong>{t("Benefits")}:</strong> {s.Benefits}
-                </p>
-                <p className="text-gray-800 mb-2">
-                  <strong>{t("Eligibility")}:</strong> {s.Eligibility}
-                </p>
-                <p className="text-gray-800 mb-1">
-                  <strong>{t("How to Apply")}:</strong>
-                </p>
-                <ul className="list-disc list-inside text-gray-700 mb-2">
-                  {splitPreservingLinks(s.HowToAvail).map((line, idx) => (
-                    <li key={idx}>{line}</li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-        </div>
-      </section>
+      <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+        {schemes.map((scheme, idx) => (
+          <div key={idx} className="bg-white border rounded-xl shadow-md p-6 hover:shadow-lg transition-all duration-300">
+            <h3 className="text-xl font-semibold text-blue-900 mb-2">{scheme.out_name}</h3>
+
+            <p className="text-gray-800 mb-2">
+              <strong>📘 Overview:</strong> {scheme.out_overview}
+            </p>
+
+            <p className="text-gray-800 mb-2">
+              <strong>🎁 Benefits:</strong> {scheme.out_benefits}
+            </p>
+
+            <p className="text-gray-800 mb-2">
+              <strong>✅ Eligibility:</strong> {scheme.out_eligibility}
+            </p>
+
+            <p className="text-gray-800 mb-2">
+              <strong>📝 How to Avail:</strong>{' '}
+              {scheme.out_how_to_avail.includes('http') ? (
+                <>
+                  {scheme.out_how_to_avail.split(' ').map((word, i) =>
+                    word.startsWith('http') ? (
+                      <a key={i} href={word} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">
+                        {word}
+                      </a>
+                    ) : (
+                      word + ' '
+                    )
+                  )}
+                </>
+              ) : (
+                scheme.out_how_to_avail
+              )}
+            </p>
+          </div>
+        ))}
+      </div>
+    </section>
     </div>
   );
 }

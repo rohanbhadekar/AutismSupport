@@ -39,6 +39,9 @@ app.get('/government-schemes', async (req, res) => {
 
 app.get('/ping', (req, res) => {
   res.send('Api is running');
+  console.log('✅ DB Host:', process.env.DB_HOST);
+  console.log('✅ DB Port:', process.env.DB_PORT);
+  console.log('✅ DB User:', process.env.DB_USER);
 });
 
 const PORT = process.env.PORT || 8081;
