@@ -27,7 +27,7 @@ const HomeActivities = () => {
 
   return (
     <div className="p-4 max-w-6xl mx-auto">
-      <h1 className="text-3xl font-bold mb-6 text-center">🏠 {t("Home-Activities.heading")}</h1>
+      <h1 className="text-xl font-bold mb-6 text-center">🏠 {t("Home-Activities.heading")}</h1>
 
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {activities.map((activity) => (
@@ -56,7 +56,7 @@ const ActivityCard = ({ activity }) => {
 
   return (
     <div className="bg-white shadow-lg rounded-2xl border border-gray-200 p-4 transition hover:shadow-xl">
-      <h2 className="text-xl font-semibold mb-2">🎯 {title}</h2>
+      <h2 className="text-l font-semibold mb-2">🎯 {title}</h2>
 
       <div className="text-sm text-gray-600 space-y-1">
         <p>🕒 {t("Home-Activities.duration")}: {time_min}–{time_max} {t("Home-Activities.mins")}</p>
