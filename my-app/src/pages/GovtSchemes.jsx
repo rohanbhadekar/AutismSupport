@@ -79,7 +79,7 @@ export default function GovtSchemes() {
       {/* ✅ Government Schemes Section */}
        <section className="px-4 py-6 max-w-6xl mx-auto">
       <h2 className="text-2xl sm:text-3xl font-bold text-green-700 mb-6">
-        🏛️ Government Schemes
+        🏛️ {t("Govt-Schemes.GovernmentSchemes")}
       </h2>
 
       <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
