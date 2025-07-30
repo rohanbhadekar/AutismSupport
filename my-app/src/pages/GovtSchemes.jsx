@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { splitPreservingLinks } from "../utils/textUtils";
 import { Helmet } from "react-helmet";
 <Helmet>
   <title>Parenting Autism Together | Support for Indian Parents</title>
@@ -89,19 +88,19 @@ export default function GovtSchemes() {
             <h3 className="text-xl font-semibold text-blue-900 mb-2">{scheme.out_name}</h3>
 
             <p className="text-gray-800 mb-2">
-              <strong>📘 Overview:</strong> {scheme.out_overview}
+              <strong>📘 {t("Govt-Schemes.Overview")}:</strong> {scheme.out_overview}
             </p>
 
             <p className="text-gray-800 mb-2">
-              <strong>🎁 Benefits:</strong> {scheme.out_benefits}
+              <strong>🎁 {t("Govt-Schemes.Benefits")}:</strong> {scheme.out_benefits}
             </p>
 
             <p className="text-gray-800 mb-2">
-              <strong>✅ Eligibility:</strong> {scheme.out_eligibility}
+              <strong>✅ {t("Govt-Schemes.Eligibility")}:</strong> {scheme.out_eligibility}
             </p>
 
             <p className="text-gray-800 mb-2">
-              <strong>📝 How to Avail:</strong>{' '}
+              <strong>📝 {t("Govt-Schemes.How to Avail")}:</strong>{' '}
               {scheme.out_how_to_avail.includes('http') ? (
                 <>
                   {scheme.out_how_to_avail.split(' ').map((word, i) =>

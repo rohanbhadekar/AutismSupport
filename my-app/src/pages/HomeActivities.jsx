@@ -10,7 +10,8 @@ import { Helmet } from "react-helmet";
 
 const HomeActivities = () => {
 
- const { i18n } = useTranslation();
+
+  const { t, i18n } = useTranslation();
   const lang = i18n.language || "en";
 
   const [activities, setActivities] = useState([]);
@@ -26,7 +27,7 @@ const HomeActivities = () => {
 
   return (
     <div className="p-4 max-w-6xl mx-auto">
-      <h1 className="text-3xl font-bold mb-6 text-center">🏠 Home Activities</h1>
+      <h1 className="text-3xl font-bold mb-6 text-center">🏠 {t("Home-Activities.heading")}</h1>
 
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {activities.map((activity) => (
@@ -38,10 +39,10 @@ const HomeActivities = () => {
 };
 
 const ActivityCard = ({ activity }) => {
+   const { t } = useTranslation();
   const [showMore, setShowMore] = useState(false);
   const {
     title,
-    slug,
     overview,
     age_min,
     age_max,
@@ -51,7 +52,6 @@ const ActivityCard = ({ activity }) => {
     materials,
     steps,
     safety_note,
-    image_prompt
   } = activity;
 
   return (
@@ -59,25 +59,25 @@ const ActivityCard = ({ activity }) => {
       <h2 className="text-xl font-semibold mb-2">🎯 {title}</h2>
 
       <div className="text-sm text-gray-600 space-y-1">
-        <p>🕒 Duration: {time_min}–{time_max} mins</p>
-        <p>👶 Age: {age_min}–{age_max} yrs</p>
-        <p>📌 Overview: {overview}</p>
-        <p>🛠 Materials: {materials?.length || 0}</p>
-        <p>🧠 Skills: {skills?.length || 0}</p>
+        <p>🕒 {t("Home-Activities.duration")}: {time_min}–{time_max} {t("Home-Activities.mins")}</p>
+        <p>👶 {t("Home-Activities.age")}: {age_min}–{age_max} {t("Home-Activities.yrs")}</p>
+        <p>📌 {t("Home-Activities.overview")}: {overview}</p>
+        <p>🛠 {t("Home-Activities.materials")}: {materials?.length || 0}</p>
+        <p>🧠 {t("Home-Activities.skills")}: {skills?.length || 0}</p>
       </div>
 
       <button
         className="mt-3 text-sm text-blue-600 hover:underline"
         onClick={() => setShowMore(!showMore)}
       >
-        {showMore ? "▲ Hide Details" : "▼ Show Details"}
+        {showMore ? `▲ ${t("Home-Activities.hideDetails")}` : `▼ ${t("Home-Activities.showDetails")}`}
       </button>
 
       {showMore && (
         <div className="mt-3 text-sm text-gray-700 space-y-2">
           {steps?.benefits?.length > 0 && (
             <div>
-              <strong>✅ Benefits:</strong>
+              <strong>✅ {t("Home-Activities.benefits")}</strong>
               <ul className="list-disc pl-5">
                 {steps.benefits.map((b, i) => (
                   <li key={i}>{b}</li>
@@ -87,7 +87,7 @@ const ActivityCard = ({ activity }) => {
           )}
           {steps?.steps?.length > 0 && (
             <div>
-              <strong>📋 Steps:</strong>
+              <strong>📋 {t("Home-Activities.steps")}:</strong>
               <ol className="list-decimal pl-5">
                 {steps.steps.map((s, i) => (
                   <li key={i}>{s}</li>
@@ -97,7 +97,7 @@ const ActivityCard = ({ activity }) => {
           )}
           {steps?.tips?.length > 0 && (
             <div>
-              <strong>💡 Tips:</strong>
+              <strong>💡 {t("Home-Activities.tips")}:</strong>
               <ul className="list-disc pl-5">
                 {steps.tips.map((t, i) => (
                   <li key={i}>{t}</li>
@@ -107,17 +107,17 @@ const ActivityCard = ({ activity }) => {
           )}
           {materials?.length > 0 && (
             <div>
-              <strong>🧰 Materials:</strong> {materials.join(", ")}
+              <strong>🧰 {t("Home-Activities.materials")}:</strong> {materials.join(", ")}
             </div>
           )}
           {skills?.length > 0 && (
             <div>
-              <strong>🧠 Skills:</strong> {skills.join(", ")}
+              <strong>🧠 {t("Home-Activities.skills")}:</strong> {skills.join(", ")}
             </div>
           )}
           {safety_note && (
             <div className="text-red-600">
-              <strong>⚠️ Safety:</strong> {safety_note}
+              <strong>⚠️ {t("Home-Activities.safety")}:</strong> {safety_note}
             </div>
           )}
         </div>

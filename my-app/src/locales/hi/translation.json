@@ -249,10 +249,26 @@
       "मेडिकल बोर्ड सत्यापन के बाद, डिजिटल और भौतिक यूडीआईडी कार्ड जारी किया जाएगा।"
     ]
   },
-  "Overview": "परिचय",
-  "Benefits": "लाभ",
-  "Eligibility": "पात्रता",
-  "How to Apply": "कैसे आवेदन करें",
-  "How to Avail": "कैसे प्राप्त करें",
-  "Government Schemes": "सरकारी योजनाएँ"
+  "Govt-Schemes": {
+    "Overview": "परिचय",
+    "Benefits": "लाभ",
+    "Eligibility": "पात्रता",
+    "How to Apply": "कैसे आवेदन करें",
+    "How to Avail": "कैसे प्राप्त करें",
+    "Government Schemes": "सरकारी योजनाएँ"
+  },
+  "Home-Activities": {
+    "heading": "घर पर बच्चे के विकास के लिए रोचक गतिविधियाँ करें।",
+    "duration": "अवधि",
+    "age": "आयु",
+    "overview": "सारांश",
+    "materials": "सामग्री",
+    "skills": "कौशल",
+    "showDetails": "विवरण दिखाएं",
+    "hideDetails": "विवरण छिपाएं",
+    "steps": "चरण",
+    "safety": "सुरक्षा सुझाव",
+    "yrs": "वर्ष",
+    "mins": "मिनट"
+  }
 }

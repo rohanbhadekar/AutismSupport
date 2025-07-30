@@ -223,10 +223,27 @@
       "After medical board verification, digital & physical UDID card is issued."
     ]
   },
-  "Overview": "Overview",
-  "Benefits": "Benefits",
-  "Eligibility": "Eligibility",
-  "How to Apply": "How to Apply",
-  "How to Avail": "How to Avail",
-  "Government Schemes": "Government Schemes"
+  "Govt-Schemes": {
+    "Overview": "Overview",
+    "Benefits": "Benefits",
+    "Eligibility": "Eligibility",
+    "How to Apply": "How to Apply",
+    "How to Avail": "How to Avail",
+    "Government Schemes": "Government Schemes"
+  },
+
+  "Home-Activities": {
+    "heading": "Engaging activities to support your child's development at home.",
+    "duration": "Duration",
+    "age": "Age",
+    "overview": "Overview",
+    "materials": "Materials",
+    "skills": "Skills",
+    "showDetails": "Show Details",
+    "hideDetails": "Hide Details",
+    "steps": "Steps",
+    "safety": "Safety Tips",
+    "yrs": "years",
+    "mins": "minutes"
+  }
 }

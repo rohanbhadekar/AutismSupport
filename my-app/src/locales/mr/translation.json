@@ -250,10 +250,26 @@
       "वैद्यकीय समितीच्या पडताळणीनंतर डिजिटल व भौतिक कार्ड जारी होईल."
     ]
   },
-  "Overview": "आढावा",
-  "Benefits": "फायदे",
-  "Eligibility": "पात्रता",
-  "How to Apply": "अर्ज कसा करावा",
-  "How to Avail": "कसे मिळवायचे",
-  "Government Schemes": "सरकारी योजना"
+  "Govt-Schemes": {
+    "Overview": "आढावा",
+    "Benefits": "फायदे",
+    "Eligibility": "पात्रता",
+    "How to Apply": "अर्ज कसा करावा",
+    "How to Avail": "कसे मिळवायचे",
+    "Government Schemes": "सरकारी योजना"
+  },
+  "Home-Activities": {
+    "heading": "आपल्या मुलाच्या विकासासाठी घरच्या घरी करता येतील अशा उपक्रमांमध्ये सहभाग घ्या.",
+    "duration": "कालावधी",
+    "age": "वय",
+    "overview": "सारांश",
+    "materials": "साहित्य",
+    "skills": "कौशल्ये",
+    "showDetails": "तपशील दाखवा",
+    "hideDetails": "तपशील लपवा",
+    "steps": "पायऱ्या",
+    "safety": "सुरक्षिततेसाठी सूचना",
+    "yrs": "वर्षे",
+    "mins": "मिनिट"
+  }
 }
