@@ -43,6 +43,7 @@ const ActivityCard = ({ activity }) => {
   const [showMore, setShowMore] = useState(false);
   const {
     title,
+    slug,
     overview,
     age_min,
     age_max,
@@ -57,7 +58,15 @@ const ActivityCard = ({ activity }) => {
   return (
     <div className="bg-white shadow-lg rounded-2xl border border-gray-200 p-4 transition hover:shadow-xl">
       <h2 className="text-l font-semibold mb-2">🎯 {title}</h2>
-
+      <div className="mb-6 flex justify-center">
+      <img
+        src={`/assets/${slug}.png`}
+        alt={slug}
+        className="w-full max-w-3xl rounded-lg shadow-md"
+      />
+    
+      </div>
+    
       <div className="text-sm text-gray-600 space-y-1">
         <p>🕒 {t("Home-Activities.duration")}: {time_min}–{time_max} {t("Home-Activities.mins")}</p>
         <p>👶 {t("Home-Activities.age")}: {age_min}–{age_max} {t("Home-Activities.yrs")}</p>
