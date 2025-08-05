@@ -6,7 +6,6 @@ import NotFound from './pages/NotFound';
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import HomeActivities from "./pages/HomeActivities";
-import SocialStories from "./pages/SocialStories";
 import HelpfulToysTools from "./pages/HelpfulToysTools";
 import GovtSchemes from "./pages/GovtSchemes";
 import SocialStoryStepCards from "./pages/SocialStoryStepCards";

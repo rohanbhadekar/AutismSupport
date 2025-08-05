@@ -42,6 +42,43 @@ const stories = [
         imageUrl: "/SocialStories/TakingTurn/scene7_cleaning_up.png"
       }
     ]
+  },
+  {
+    id: "dentist-visit",
+    title: "Dentist visit",
+    imageUrl: "/SocialStories/DentistVisit/ThumbNail.png",
+    steps: [
+      {
+        id: 1,
+        caption: "Ram is getting ready to visit the dentist today. He wears his orange t-shirt and sits calmly.",
+        imageUrl: "/SocialStories/DentistVisit/scene1_getting_ready.png"
+      },
+      {
+        id: 2,
+        caption: "Ram and his mom arrive at the dental clinic. They walk in through the glass door.",
+        imageUrl: "/SocialStories/DentistVisit/scene2_arriving_clinic.png"
+      },
+      {
+        id: 3,
+        caption: "They sit in the waiting room. Ram looks a little nervous but stays calm while holding a coloring book.",
+        imageUrl: "/SocialStories/DentistVisit/scene3_waiting_room.png"
+      },
+      {
+        id: 4,
+        caption: "The dentist aunty smiles and welcomes Ram. She asks him to sit on the special chair.",
+        imageUrl: "/SocialStories/DentistVisit/scene4_meeting_dentist.png"
+      },
+      {
+        id: 5,
+        caption: "Ram opens his mouth and lets the dentist check his teeth gently. It doesn’t hurt at all!",
+        imageUrl: "/SocialStories/DentistVisit/scene5_checkup.png"
+      },
+      {
+        id: 6,
+        caption: "The dentist says, ‘Great job, Ram!’ and gives him a sticker. Ram feels proud and happy.",
+        imageUrl: "/SocialStories/DentistVisit/scene6_finish.png"
+      }
+    ]
   }
 ];
 
@@ -126,7 +163,7 @@ const SocialStoryStepCards = () => {
             </button>
 
             <span className="text-sm text-gray-700">
-              Step {currentStepIndex + 1} of {selectedStory.steps.length}
+              Page {currentStepIndex + 1} of {selectedStory.steps.length}
             </span>
 
             <button
