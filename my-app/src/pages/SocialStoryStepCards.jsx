@@ -33,7 +33,7 @@ const stories = [
       },
       {
         id: 6,
-        caption: "They cheer when someone makes a good move. It feels good to celebrate together!",
+        caption: "Sometimes we win. Sometimes we don’t. That’s okay. Everyone has fun",
         imageUrl: "/SocialStories/TakingTurn/scene6_handling_losing.png"
       },
       {
