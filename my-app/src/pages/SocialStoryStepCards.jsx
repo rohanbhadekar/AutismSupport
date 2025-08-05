@@ -9,7 +9,7 @@ const stories = [
       {
         id: 1,
         caption: "Ram and Meera are good friends. They love playing games together.",
-            imageUrl: "/SocialStories/TakingTurn/scene1_sitting_together.png"
+        imageUrl: "/SocialStories/TakingTurn/scene1_sitting_together.png"
       },
       {
         id: 2,
@@ -43,11 +43,33 @@ const stories = [
       }
     ]
   }
-  // You can add more stories here in the same structure
 ];
 
 const SocialStoryStepCards = () => {
   const [selectedStory, setSelectedStory] = useState(null);
+  const [currentStepIndex, setCurrentStepIndex] = useState(0);
+
+  const handleSelectStory = (story) => {
+    setSelectedStory(story);
+    setCurrentStepIndex(0);
+  };
+
+  const handleNext = () => {
+    if (currentStepIndex < selectedStory.steps.length - 1) {
+      setCurrentStepIndex((prev) => prev + 1);
+    }
+  };
+
+  const handlePrevious = () => {
+    if (currentStepIndex > 0) {
+      setCurrentStepIndex((prev) => prev - 1);
+    }
+  };
+
+  const handleBackToStories = () => {
+    setSelectedStory(null);
+    setCurrentStepIndex(0);
+  };
 
   return (
     <div className="p-4">
@@ -56,45 +78,68 @@ const SocialStoryStepCards = () => {
           {stories.map((story) => (
             <div
               key={story.id}
-              onClick={() => setSelectedStory(story)}
+              onClick={() => handleSelectStory(story)}
               className="bg-white rounded-2xl shadow-md overflow-hidden border cursor-pointer hover:shadow-lg"
             >
               <div className="p-6 text-center">
-               <img
+                <img
                   src={story.imageUrl}
                   alt={story.title}
-                  className="w-full h-auto object-cover"
+                  className="w-full h-48 object-cover rounded-lg mb-2"
                 />
                 <h2 className="text-lg font-semibold">{story.title}</h2>
-                
               </div>
             </div>
           ))}
         </div>
       ) : (
-        <div>
+        <div className="max-w-2xl mx-auto">
           <button
             className="mb-4 text-blue-600 hover:underline"
-            onClick={() => setSelectedStory(null)}
+            onClick={handleBackToStories}
           >
             ← Back to Stories
           </button>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-            {selectedStory.steps.map((step) => (
-              <div
-                key={step.id}
-                className="bg-white rounded-2xl shadow-md overflow-hidden border"
-              >
-                <img
-                  src={step.imageUrl}
-                  alt={step.caption}
-                  className="w-full h-auto object-cover"
-                />
-                <div className="p-3 text-center text-base font-medium">
-                  {step.caption}
-                </div>
-              </div>
-            ))}
+
+          <div className="bg-white rounded-2xl shadow-md overflow-hidden border">
+            <img
+              src={selectedStory.steps[currentStepIndex].imageUrl}
+              alt={`Step ${currentStepIndex + 1}`}
+              className="w-full object-cover"
+            />
+            <div className="p-4 text-center text-lg font-medium">
+              {selectedStory.steps[currentStepIndex].caption}
+            </div>
+          </div>
+
+          <div className="flex items-center justify-between mt-4">
+            <button
+              onClick={handlePrevious}
+              disabled={currentStepIndex === 0}
+              className={`px-4 py-2 rounded-md ${
+                currentStepIndex === 0
+                  ? "bg-gray-300 cursor-not-allowed"
+                  : "bg-blue-500 text-white hover:bg-blue-600"
+              }`}
+            >
+              ⬅️ Previous
+            </button>
+
+            <span className="text-sm text-gray-700">
+              Step {currentStepIndex + 1} of {selectedStory.steps.length}
+            </span>
+
+            <button
+              onClick={handleNext}
+              disabled={currentStepIndex === selectedStory.steps.length - 1}
+              className={`px-4 py-2 rounded-md ${
+                currentStepIndex === selectedStory.steps.length - 1
+                  ? "bg-gray-300 cursor-not-allowed"
+                  : "bg-blue-500 text-white hover:bg-blue-600"
+              }`}
+            >
+              Next ➡️
+            </button>
           </div>
         </div>
       )}
