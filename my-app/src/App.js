@@ -9,6 +9,7 @@ import HomeActivities from "./pages/HomeActivities";
 import SocialStories from "./pages/SocialStories";
 import HelpfulToysTools from "./pages/HelpfulToysTools";
 import GovtSchemes from "./pages/GovtSchemes";
+import SocialStoryStepCards from "./pages/SocialStoryStepCards";
 
 function App() {
   
@@ -24,7 +25,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
 
           <Route path="/home-activities" element={<HomeActivities />} />
-          <Route path="/social-stories" element={<SocialStories />} />
+          <Route path="/social-stories" element={<SocialStoryStepCards  />} />
           <Route path="/helpful-toys-tools" element={<HelpfulToysTools />} />
           <Route path="/govt-schemes" element={<GovtSchemes />} />
 
