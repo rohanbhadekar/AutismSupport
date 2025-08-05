@@ -56,6 +56,7 @@ const Header = () => {
                   d="M4 6h16M4 12h16M4 18h16"
                 />
               </svg>
+               <div className="flex items-right gap-2"></div>
             </button>
           </div>
         </div>
