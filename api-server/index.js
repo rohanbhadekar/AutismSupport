@@ -44,6 +44,34 @@ app.get('/ping', (req, res) => {
   console.log('✅ DB User:', process.env.DB_USER);
 });
 
+
+app.get('/stories', async (req, res) => {
+  const lang = req.query.lang || 'en';
+
+   try {
+    const { rows } = await pool.query("SELECT get_stories_by_lang($1) AS data", [req.query.lang]);
+    
+    // Flatten and map the response
+    const formatted = rows[0].data.map(story => ({
+      id: story.id,
+      title: story.title,
+      imageUrl: story.imageUrl, // or replace with thumbnail if needed
+      steps: story.steps.map(step => ({
+        id: step.id,
+        caption: step.caption,
+        imageUrl: step.imageUrl
+      }))
+    }));
+
+    res.json(formatted);
+  } catch (error) {
+    console.error("Error fetching stories:", error);
+    res.status(500).json({ error: "Failed to fetch stories" });
+  }
+});
+
+
+
 const PORT = process.env.PORT || 8081;
 app.listen(PORT, () => {
   console.log(`✅ Server running on port ${PORT}`);

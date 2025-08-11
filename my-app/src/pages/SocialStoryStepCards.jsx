@@ -1,90 +1,38 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-const stories = [
-  {
-    id: "taking-turns",
-    title: "Taking Turns While Playing",
-    imageUrl: "/SocialStories/TakingTurn/scene2_starting_to_play.png",
-    steps: [
-      {
-        id: 1,
-        caption: "Ram and Meera are good friends. They love playing games together.",
-        imageUrl: "/SocialStories/TakingTurn/scene1_sitting_together.png"
-      },
-      {
-        id: 2,
-        caption: "Ram and Meera sit down together to play a board game.",
-        imageUrl: "/SocialStories/TakingTurn/scene2_starting_to_play.png"
-      },
-      {
-        id: 3,
-        caption: "It’s Meera’s turn first. Ram waits patiently for his turn",
-        imageUrl: "/SocialStories/TakingTurn/scene3_meera_turn.png"
-      },
-      {
-        id: 4,
-        caption: "Now it’s Ram’s turn. He rolls the dice and moves his piece.",
-        imageUrl: "/SocialStories/TakingTurn/scene4_ram_turn.png"
-      },
-      {
-        id: 5,
-        caption: "They cheer when someone makes a good move. It feels good to celebrate together!",
-        imageUrl: "/SocialStories/TakingTurn/scene5_cheering_each_other.png"
-      },
-      {
-        id: 6,
-        caption: "Sometimes we win. Sometimes we don’t. That’s okay. Everyone has fun",
-        imageUrl: "/SocialStories/TakingTurn/scene6_handling_losing.png"
-      },
-      {
-        id: 7,
-        caption: "Ram says, ‘Let’s play again tomorrow!’ Taking turns is fun.",
-        imageUrl: "/SocialStories/TakingTurn/scene7_cleaning_up.png"
-      }
-    ]
-  },
-  {
-    id: "dentist-visit",
-    title: "Dentist visit",
-    imageUrl: "/SocialStories/DentistVisit/ThumbNail.png",
-    steps: [
-      {
-        id: 1,
-        caption: "Ram is getting ready to visit the dentist today. He wears his orange t-shirt and sits calmly.",
-        imageUrl: "/SocialStories/DentistVisit/scene1_getting_ready.png"
-      },
-      {
-        id: 2,
-        caption: "Ram and his mom arrive at the dental clinic. They walk in through the glass door.",
-        imageUrl: "/SocialStories/DentistVisit/scene2_arriving_clinic.png"
-      },
-      {
-        id: 3,
-        caption: "They sit in the waiting room. Ram looks a little nervous but stays calm while holding a coloring book.",
-        imageUrl: "/SocialStories/DentistVisit/scene3_waiting_room.png"
-      },
-      {
-        id: 4,
-        caption: "The dentist aunty smiles and welcomes Ram. She asks him to sit on the special chair.",
-        imageUrl: "/SocialStories/DentistVisit/scene4_meeting_dentist.png"
-      },
-      {
-        id: 5,
-        caption: "Ram opens his mouth and lets the dentist check his teeth gently. It doesn’t hurt at all!",
-        imageUrl: "/SocialStories/DentistVisit/scene5_checkup.png"
-      },
-      {
-        id: 6,
-        caption: "The dentist says, ‘Great job, Ram!’ and gives him a sticker. Ram feels proud and happy.",
-        imageUrl: "/SocialStories/DentistVisit/scene6_finish.png"
-      }
-    ]
-  }
-];
-
-const SocialStoryStepCards = () => {
+const SocialStoryStepCards = ({ lang = "en" }) => {
+  const [stories, setStories] = useState([]);
   const [selectedStory, setSelectedStory] = useState(null);
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    const baseUrl = process.env.REACT_APP_API_BASE_URL;
+    console.log("Fetching stories from:", `${baseUrl}/stories?lang=${lang}`);
+
+    setLoading(true);
+    setError("");
+
+    fetch(`${baseUrl}/stories?lang=${lang}`)
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`HTTP error ${res.status}`);
+        }
+        return res.json();
+      })
+      .then((data) => {
+
+        
+        setStories(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("API error:", err);
+        setError(err.message || "Failed to fetch stories");
+        setLoading(false);
+      });
+  }, [lang]);
 
   const handleSelectStory = (story) => {
     setSelectedStory(story);
@@ -107,6 +55,9 @@ const SocialStoryStepCards = () => {
     setSelectedStory(null);
     setCurrentStepIndex(0);
   };
+
+  if (loading) return <div className="p-4">Loading stories...</div>;
+  if (error) return <div className="p-4 text-red-600">{error}</div>;
 
   return (
     <div className="p-4">
