@@ -1,11 +1,23 @@
 import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { Helmet } from "react-helmet";
+<Helmet>
+  <title>Parenting Autism Together | Support for Indian Parents</title>
+  <meta name="description" content="Explore resources, activities, and government schemes for autism parenting in India. Available in Marathi, Hindi, and English." />
+  <meta name="keywords" content="Autism, Parenting, India, Activities, Government Schemes, Marathi, Hindi, English" />
+  <link rel="canonical" href="https://parentingautismtogether.in/" />
+</Helmet>
 
-const SocialStoryStepCards = ({ lang = "en" }) => {
+const SocialStoryStepCards = () => {
   const [stories, setStories] = useState([]);
   const [selectedStory, setSelectedStory] = useState(null);
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+
+  const { i18n } = useTranslation();
+  const lang = i18n.language || "en";
+
 
   useEffect(() => {
     const baseUrl = process.env.REACT_APP_API_BASE_URL;
@@ -22,8 +34,6 @@ const SocialStoryStepCards = ({ lang = "en" }) => {
         return res.json();
       })
       .then((data) => {
-
-        
         setStories(data);
         setLoading(false);
       })
