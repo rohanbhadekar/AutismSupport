@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/__clerk/:match*",
+      "destination": "https://frontend-api.clerk.services/__clerk/:match*"
+    }
+  ]
+}

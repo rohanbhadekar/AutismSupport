@@ -9,6 +9,10 @@ import reportWebVitals from "./reportWebVitals";
 import { ClerkProvider } from "@clerk/clerk-react";
 
 const PUBLISHABLE_KEY = process.env.REACT_APP_CLERK_PUBLISHABLE_KEY;
+const clerkFrontendApi = process.env.REACT_APP_CLERK_FRONTEND_API;
+const proxyUrl = process.env.REACT_APP_CLERK_PROXY_URL;
+
+const isProduction = process.env.NODE_ENV === "production";
 
 if (!PUBLISHABLE_KEY) {
   console.error("Missing Clerk publishable key (REACT_APP_CLERK_PUBLISHABLE_KEY).");
@@ -18,7 +22,13 @@ if (!PUBLISHABLE_KEY) {
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <ClerkProvider publishableKey={PUBLISHABLE_KEY} frontendApi="clerk.parentingautismtogether.in">
+ <ClerkProvider
+  publishableKey={PUBLISHABLE_KEY}
+  {...(isProduction && {
+    frontendApi: clerkFrontendApi,
+    proxyUrl: proxyUrl,
+  })}
+>
       <FontWrapper>
         <BrowserRouter>
           <App />
