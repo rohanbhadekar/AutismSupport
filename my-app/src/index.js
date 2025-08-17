@@ -10,7 +10,7 @@ import { ClerkProvider } from "@clerk/clerk-react";
 
 const PUBLISHABLE_KEY = process.env.REACT_APP_CLERK_PUBLISHABLE_KEY;
 const clerkFrontendApi = process.env.REACT_APP_CLERK_FRONTEND_API;
-const proxyUrl = process.env.REACT_APP_CLERK_PROXY_URL;
+
 
 const isProduction = process.env.NODE_ENV === "production";
 
@@ -25,8 +25,7 @@ root.render(
  <ClerkProvider
   publishableKey={PUBLISHABLE_KEY}
   {...(isProduction && {
-    frontendApi: clerkFrontendApi,
-    proxyUrl: proxyUrl,
+    frontendApi: clerkFrontendApi
   })}
 >
       <FontWrapper>
