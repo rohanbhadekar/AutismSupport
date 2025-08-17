@@ -376,12 +376,6 @@ app.get('/stories', async (req, res) => {
 });
 
 
-app.use('/__clerk', (req, res) => {
-  const url = `https://frontend-api.clerk.services${req.originalUrl}`;
-  req.pipe(fetch(url)).then(response => {
-    response.body.pipe(res);
-  });
-  });
 
 app.listen(PORT, () => {
   if (!process.env.CLERK_SECRET_KEY?.startsWith("sk_")) {
