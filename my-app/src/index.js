@@ -18,7 +18,7 @@ if (!PUBLISHABLE_KEY) {
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
+    <ClerkProvider publishableKey={PUBLISHABLE_KEY} frontendApi="clerk.parentingautismtogether.in">
       <FontWrapper>
         <BrowserRouter>
           <App />
