@@ -21,10 +21,27 @@ pool.connect()
 
 const PORT = process.env.PORT || 4000;
 
+// ----------- CORS -----------
+const allowedOrigins = [
+  "http://localhost:3000",
+  "http://127.0.0.1:3000",
+  "https://parentingautismtogether.in",
+  "https://www.parentingautismtogether.in",
+];
+app.use((req, res, next) => { res.header("Vary", "Origin"); next(); });
 app.use(cors({
-  origin: ["http://localhost:3000", "http://127.0.0.1:3000","https://parentingautismtogether.in/"],
+  origin(origin, cb) {
+    if (!origin) return cb(null, true); // allow curl/postman
+    return allowedOrigins.includes(origin)
+      ? cb(null, true)
+      : cb(new Error("CORS: origin not allowed"));
+  },
+  methods: ["GET","HEAD","POST","PUT","PATCH","DELETE","OPTIONS"],
+  allowedHeaders: ["Content-Type","Authorization","Accept","X-Requested-With"],
   credentials: true,
+  optionsSuccessStatus: 204,
 }));
+
 app.use(express.json());
 app.use(clerkMiddleware());
 
