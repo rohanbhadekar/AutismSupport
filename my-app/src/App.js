@@ -9,6 +9,9 @@ import HomeActivities from "./pages/HomeActivities";
 import HelpfulToysTools from "./pages/HelpfulToysTools";
 import GovtSchemes from "./pages/GovtSchemes";
 import SocialStoryStepCards from "./pages/SocialStoryStepCards";
+import DebugToken from "./DebugToken";
+import QaListPage from "./pages/QaListPage";
+import QuestionDetailPage from "./pages/QuestionDetailPage";
 
 function App() {
   
@@ -21,14 +24,16 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-
+          <Route path="/contact" element={<Contact />} /> 
           <Route path="/home-activities" element={<HomeActivities />} />
           <Route path="/social-stories" element={<SocialStoryStepCards  />} />
           <Route path="/helpful-toys-tools" element={<HelpfulToysTools />} />
           <Route path="/govt-schemes" element={<GovtSchemes />} />
-
+          <Route path="/debugtoken" element={<DebugToken />} />         
+          {/* Catch-all route for 404 Not Found */}
           <Route path="*" element={<NotFound />} />
+          <Route path="/qa" element={<QaListPage />} />
+          <Route path="/qa/:id" element={<QuestionDetailPage />} />
         </Routes>
       </main>
         <Footer />
