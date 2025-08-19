@@ -7,7 +7,8 @@ export default function CallApi() {
   const hitApi = async () => {
     const token = await getToken(); // default = 'session' token
     alert(`Token: ${token}`);
-    const res = await fetch("http://localhost:4000/api/protected", {
+    console.log(`Token: ${token}`);
+    const res = await fetch("http://parentingautismtogether.up.railway.app/api/protected", {
       headers: { Authorization: `Bearer ${token}` }
     });
     alert(await res.text());
