@@ -49,7 +49,7 @@ app.use(clerkMiddleware());
 // helper: ensure a profile row exists for this Clerk user
 async function ensureProfile(clerkUserId, displayName = null) {
   if(displayName == null) {
-        const u = await clerkClient.users.getUser(userId);
+        const u = await clerkClient.users.getUser(clerkUserId);
     displayName =
     u?.firstName?.trim() ||
     u?.username?.trim() ||
@@ -163,7 +163,8 @@ app.post("/api/qa/questions", requireUser, async (req, res) => {
   if (!title?.trim() || !body?.trim()) {
     return res.status(400).json({ error: "title and body are required" });
   }
-const u = await clerkClient.users.getUser(userId);
+const u = await clerkClient.users.getUser(clerkUserId);
+
   const displayName =
     u?.firstName?.trim() ||
     u?.username?.trim() ||
