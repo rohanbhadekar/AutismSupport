@@ -49,7 +49,8 @@ export default function QaListPage() {
   if (!title || !body) return alert("Title and Body required");
 
   try {
-    const qn = await api.askQuestion({
+
+     const qn = await api.askQuestion({
       title,
       body,
       tags,
