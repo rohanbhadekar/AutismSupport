@@ -163,15 +163,14 @@ app.post("/api/qa/questions", requireUser, async (req, res) => {
   if (!title?.trim() || !body?.trim()) {
     return res.status(400).json({ error: "title and body are required" });
   }
-const u = await clerkClient.users.getUser(clerkUserId);
-
+const u = await clerkClient.users.getUser(userId);
   const displayName =
     u?.firstName?.trim() ||
     u?.username?.trim() ||
     u?.primaryEmailAddress?.emailAddress ||
     "Anonymous";
 
-  await ensureProfile(userId);
+ await ensureProfile(userId, displayName); // ✅ fixed
 
   const { rows } = await pool.query(
     `INSERT INTO questions (title, body, tags, author_clerk_id)
