@@ -2,7 +2,8 @@ import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import { Pool } from "pg";
-import { clerkMiddleware, getAuth } from "@clerk/express";
+import { clerkMiddleware, getAuth, clerkClient } from "@clerk/express";
+
 
 const app = express();
 
