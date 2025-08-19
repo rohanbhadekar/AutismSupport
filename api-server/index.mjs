@@ -75,6 +75,18 @@ function requireUser(req, res, next) {
 }
 
 // ---------- Routes ----------
+app.post("/api/protected", (req, res) => {
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader || !authHeader.startsWith("Bearer ")) {
+    return res.status(401).json({ error: "Unauthorized" });
+  }
+
+  const token = authHeader.split(" ")[1];
+  // 👉 You can verify token here if using Clerk or JWT
+
+  return res.json({ ok: true, message: "You are authorized!", token });
+});
 
 // List questions (with search/tag + pagination)
 app.get("/api/qa/questions", async (req, res) => {
