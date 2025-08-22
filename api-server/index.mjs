@@ -8,10 +8,10 @@ import { clerkMiddleware, getAuth, clerkClient } from "@clerk/express";
 const app = express();
 
 const pool = new Pool({
-  host: process.env.DB_HOST || "127.0.0.1",
-  port: Number(process.env.DB_PORT || 5432),
+  host: process.env.DB_HOST,
+  port: Number(process.env.DB_PORT ),
   user: process.env.DB_USER,
-  password: String(process.env.DB_PASSWORD || ""), // force string
+  password: String(process.env.DB_PASSWORD ), // force string
   database: process.env.DB_NAME,
    ssl: {
     rejectUnauthorized: false, // needed on Render/Railway
