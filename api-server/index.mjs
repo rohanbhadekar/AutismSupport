@@ -13,7 +13,9 @@ const pool = new Pool({
   user: process.env.DB_USER,
   password: String(process.env.DB_PASSWORD || ""), // force string
   database: process.env.DB_NAME,
-  ssl: false, // since you set sslmode=disable
+   ssl: {
+    rejectUnauthorized: false, // needed on Render/Railway
+  },
 });
 
 pool.connect()
