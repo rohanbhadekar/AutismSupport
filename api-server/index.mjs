@@ -1,10 +1,11 @@
-import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import { Pool } from "pg";
 import { clerkMiddleware, getAuth, clerkClient } from "@clerk/express";
 
-
+if (process.env.NODE_ENV !== "production") {
+  import("dotenv/config");
+}
 const app = express();
 
 const pool = new Pool({
