@@ -362,7 +362,7 @@ app.get('/ping', (req, res) => {
   console.log('✅ DB Host:', process.env.DB_HOST);
   console.log('✅ DB Port:', process.env.DB_PORT);
   console.log('✅ DB User:', process.env.DB_USER);
-  console.log('✅ NODE_ENV:', process.env.NODE_ENV);
+  console.log('✅ NODE_ENV:', process.env.ENV);
 
 });
 
