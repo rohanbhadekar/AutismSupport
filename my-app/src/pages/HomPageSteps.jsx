@@ -1,6 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
+import { useEffect } from "react";
 <Helmet>
   <title>Parenting Autism Together | Support for Indian Parents</title>
   <meta name="description" content="Explore resources, activities, and government schemes for autism parenting in India. Available in Marathi, Hindi, and English." />
@@ -11,6 +12,15 @@ import { Helmet } from "react-helmet";
 // translation.json via i18next.  No extra UI libraries—still plain JSX + Tailwind.
 
 function HomePage() {
+
+   useEffect(() => {
+    // Replace with your Render service URL
+    const baseUrl = process.env.REACT_APP_API_BASE_URL;
+     fetch(`${baseUrl}/ping`)
+      .then(() => console.log("Service warmed up"))
+      .catch((err) => console.error("Ping failed:", err));
+  }, []);
+  
   const { t } = useTranslation();
   
   const navigate = useNavigate();  
