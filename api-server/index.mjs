@@ -1,23 +1,38 @@
+// index.mjs (top of file)
 import express from "express";
 import cors from "cors";
 import { Pool } from "pg";
 import { clerkMiddleware, getAuth, clerkClient } from "@clerk/express";
 
+// Load dotenv synchronously (top-level await works in .mjs)
 if (process.env.NODE_ENV !== "production") {
-  import("dotenv/config");
+  await import("dotenv/config");
 }
+
 const app = express();
 
-const pool = new Pool({
-  host: process.env.DB_HOST,
-  port: Number(process.env.DB_PORT ),
-  user: process.env.DB_USER,
-  password: String(process.env.DB_PASSWORD ), // force string
-  database: process.env.DB_NAME,
-   ssl: {
-    rejectUnauthorized: false, // needed on Render/Railway
-  },
-});
+// Sanity-check env presence (DO NOT log actual passwords)
+console.log("✅ NODE_ENV:", process.env.NODE_ENV);
+console.log("✅ DB_HOST present:", !!process.env.DB_HOST);
+console.log("✅ DB_PORT present:", !!process.env.DB_PORT);
+console.log("✅ DB_USER present:", !!process.env.DB_USER);
+console.log("✅ DB_PASSWORD present:", !!process.env.DB_PASSWORD);
+console.log("✅ DB_NAME present:", !!process.env.DB_NAME);
+
+// Prefer a connection string if you have one (handles special chars)
+// example: postgres://user:pass@host:5432/dbname
+const connectionString = process.env.DATABASE_URL || process.env.PG_CONN_STRING;
+
+const pool = connectionString
+  ? new Pool({ connectionString, ssl: false })
+  : new Pool({
+      host: process.env.DB_HOST || "localhost",
+      port: process.env.DB_PORT ? Number(process.env.DB_PORT) : 5432,
+      user: process.env.DB_USER,        // keep as-is (do NOT wrap in String())
+      password: process.env.DB_PASSWORD,// keep as-is (do NOT wrap in String())
+      database: process.env.DB_NAME,
+      ssl: false,
+    });
 
 pool.connect()
   .then(() => console.log("✅ Connected to Postgres"))
