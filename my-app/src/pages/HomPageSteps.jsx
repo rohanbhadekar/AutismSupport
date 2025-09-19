@@ -2,6 +2,9 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import { useEffect } from "react";
+import { ArrowRight } from "lucide-react"; // nice arrow icon
+import { Link } from "react-router-dom";
+
 <Helmet>
   <title>Parenting Autism Together | Support for Indian Parents</title>
   <meta name="description" content="Explore resources, activities, and government schemes for autism parenting in India. Available in Marathi, Hindi, and English." />
@@ -88,15 +91,21 @@ function HomePage() {
               {t(feature.emojiKey)} {t(feature.titleKey)}
             </h2>
             <p className="text-gray-600 mb-4">{t(feature.descKey)}</p>
-            <button
+            {/* <button
               onClick={() => navigate(feature.route)}
               className="mt-auto bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
             >
               {t("nav.learnMore") || "Learn More"}
-            </button>
-          </div>
-
-          
+            </button> */}
+        
+             <a className="group inline-block cursor-pointer text-blue-600 font-medium" href="#"
+               onClick={() => navigate(feature.route)}>
+                <div className="mt-4 flex items-center text -blue-600 font-medium">
+                    {t("nav.learnMore") || "Learn More"}
+                    <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  </div>
+              </a>
+          </div>          
         ))}
       </div>   
       <br></br>
