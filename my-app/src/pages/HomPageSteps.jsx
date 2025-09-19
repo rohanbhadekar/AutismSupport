@@ -49,11 +49,11 @@ function HomePage() {
     route: "/social-stories",
   },
   {
-    key: "helpfulToysTools",
-    emojiKey: "nav.helpfulToysToolsEmoji",
-    titleKey: "nav.helpfulToysToolsTitle",
-    descKey: "nav.helpfulToysToolsDescription",
-    route: "/helpful-toys-tools",
+    key: "articles",
+    emojiKey: "nav.articlesEmoji",
+    titleKey: "nav.articlesTitle",
+    descKey: "nav.articlesDescription",
+    route: "/articles",
   },
   {
     key: "govtSchemes",

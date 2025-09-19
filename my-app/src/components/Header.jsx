@@ -122,8 +122,8 @@ const Header = () => {
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/helpful-toys-tools" className={linkClasses} onClick={() => setMenuOpen(false)}>
-                    <span className="mr-2">{t("nav.helpfulToysToolsEmoji")}</span> {t("nav.helpfulToysTools")}
+                  <NavLink to="/articles" className={linkClasses} onClick={() => setMenuOpen(false)}>
+                    <span className="mr-2">{t("nav.articlesEmoji")}</span> {t("nav.articles")}
                   </NavLink>
                 </li>
                 <li>

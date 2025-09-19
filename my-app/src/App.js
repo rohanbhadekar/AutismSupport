@@ -6,12 +6,13 @@ import NotFound from './pages/NotFound';
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import HomeActivities from "./pages/HomeActivities";
-import HelpfulToysTools from "./pages/HelpfulToysTools";
 import GovtSchemes from "./pages/GovtSchemes";
 import SocialStoryStepCards from "./pages/SocialStoryStepCards";
 import DebugToken from "./DebugToken";
 import QaListPage from "./pages/QaListPage";
 import QuestionDetailPage from "./pages/QuestionDetailPage";
+import ArticlesList from "./pages/ArticlesList";
+import ArticlesDetails from "./pages/ArticleDetail";
 
 function App() {
   
@@ -27,13 +28,14 @@ function App() {
           <Route path="/contact" element={<Contact />} /> 
           <Route path="/home-activities" element={<HomeActivities />} />
           <Route path="/social-stories" element={<SocialStoryStepCards  />} />
-          <Route path="/helpful-toys-tools" element={<HelpfulToysTools />} />
+          <Route path="/articles" element={<ArticlesList />} />
           <Route path="/govt-schemes" element={<GovtSchemes />} />
           <Route path="/debugtoken" element={<DebugToken />} />         
           {/* Catch-all route for 404 Not Found */}
           <Route path="*" element={<NotFound />} />
           <Route path="/qa" element={<QaListPage />} />
           <Route path="/qa/:id" element={<QuestionDetailPage />} />
+          <Route path="/articles/:id" element={<ArticlesDetails />} />
         </Routes>
       </main>
         <Footer />
