@@ -28,7 +28,13 @@ const Header = () => {
         <div className="flex items-center gap-3">
           <img src={Logo} alt="Parenting Autism Together" className="h-12 sm:h-16 w-auto object-contain p-1" />
           <span className="text-base sm:text-lg font-semibold tracking-wide text-blue-800">
-            Parenting&nbsp;Autism&nbsp;Together
+
+          <Link
+              to="/"         
+            >
+               Parenting&nbsp;Autism&nbsp;Together
+            </Link>
+           
           </span>
         </div>
 
