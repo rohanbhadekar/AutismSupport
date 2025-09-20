@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import { ArrowRight } from "lucide-react";
+import ReactMarkdown from "react-markdown";
 
 function HomePage() {
   useEffect(() => {
@@ -70,13 +71,21 @@ function HomePage() {
       </Helmet>
 
       {/* Hero */}
-      <header className="text-center mb-12">
-        <h1 className="text-4xl font-bold mb-4">{t("hero.heading")}</h1>
-        <p
-          className="text-lg text-gray-700"
-          dangerouslySetInnerHTML={{ __html: t("hero.intro") }}
-        />
-      </header>
+<header className="text-center mb-8">
+  <h1 className="text-4xl font-bold mb-2">{t("hero.heading")}</h1>
+  <div className="text-gray-700 text-base leading-relaxed text-left max-w-5xl mx-auto">
+    <ReactMarkdown
+      components={{
+        strong: ({ children }) => <strong className="font-semibold">{children}</strong>,
+        ul: ({ children }) => <ul className="list-disc pl-6 space-y-1">{children}</ul>,
+        li: ({ children }) => <li>{children}</li>,
+        p: ({ children }) => <p className="mb-2">{children}</p>
+      }}
+    >
+      {t("hero.intro")}
+    </ReactMarkdown>
+  </div>
+</header>
 
       {/* Feature cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
