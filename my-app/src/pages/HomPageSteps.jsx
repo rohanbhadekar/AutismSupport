@@ -72,7 +72,7 @@ function HomePage() {
 
       {/* Hero */}
 <header className="text-center mb-8">
-  <h1 className="text-4xl font-bold mb-2">{t("hero.heading")}</h1>
+  <h1 className="text-3xl font-bold mb-2">{t("hero.heading")}</h1>
   <div className="text-gray-700 text-base leading-relaxed text-left max-w-5xl mx-auto">
     <ReactMarkdown
       components={{

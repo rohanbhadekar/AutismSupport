@@ -14,55 +14,84 @@ const Header = () => {
     return () => window.removeEventListener("keydown", onKey);
   }, []);
 
+  const currentLang = i18n?.language || "en";
+
   const linkClasses = ({ isActive }) =>
     `block text-sm font-medium px-4 py-2 rounded transition-all ${
       isActive ? "text-blue-700 bg-blue-100" : "text-gray-700 hover:bg-gray-100"
     }`;
 
-  const changeLanguage = (lng) => i18n.changeLanguage(lng);
+  const changeLanguage = (lng) => {
+    if (i18n && typeof i18n.changeLanguage === "function") {
+      i18n.changeLanguage(lng);
+    }
+    setMenuOpen(false);
+  };
 
   return (
     <header className="bg-[#fbfaf7] shadow-md border-b sticky top-0 z-50">
       <div className="max-w-screen-xl mx-auto px-4 py-3 flex items-center justify-between">
-        {/* Brand */}
-        <div className="flex items-center gap-3">
-          <img src={Logo} alt="Parenting Autism Together" className="h-12 sm:h-16 w-auto object-contain p-1" />
-          <span className="text-base sm:text-lg font-semibold tracking-wide text-blue-800">
-
-          <Link
-              to="/"         
-            >
-               Parenting&nbsp;Autism&nbsp;Together
-            </Link>
-           
+        {/* Left: Logo + Brand */}
+        <Link to="/" className="flex items-center gap-3">
+          <img
+            src={Logo}
+            alt="Parenting Autism Together"
+            className="h-12 sm:h-14 w-auto object-contain"
+            loading="lazy"
+          />
+          <span className="text-base sm:text-lg font-semibold tracking-wide text-blue-800 leading-none">
+            Parenting&nbsp;Autism&nbsp;Together
           </span>
-        </div>
+        </Link>
 
-        {/* Right: Ask (signed-in only) + Hamburger */}
+        {/* Right: Lang + Auth + Hamburger */}
         <div className="flex items-center gap-3">
-          {/* Ask Question (desktop) — only when signed in */}
+          {/* Language pills */}
+          <div className="hidden sm:flex items-center gap-2" role="toolbar" aria-label="Language switcher">
+            {["en", "hi", "mr"].map((lng) => (
+              <button
+                key={lng}
+                onClick={() => changeLanguage(lng)}
+                aria-pressed={currentLang === lng}
+                aria-label={`Switch to ${lng}`}
+                className={`text-sm px-2 py-1 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-300 transition ${
+                  currentLang === lng
+                    ? "bg-blue-600 text-white"
+                    : "bg-white border border-gray-200 text-gray-700 hover:bg-gray-50"
+                }`}
+              >
+                {lng === "en" ? "EN" : lng === "hi" ? "हिंदी" : "म"}
+              </button>
+            ))}
+          </div>
+
+          {/* Auth / Ask */}
           <SignedIn>
             <Link
               to="/qa"
-              className="hidden sm:inline-flex items-center bg-blue-600 text-white text-sm px-3 py-1.5 rounded hover:bg-blue-700"
+              title="Ask a question"
+              className="hidden sm:inline-flex items-center bg-blue-600 text-white text-sm px-3 py-1.5 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300"
             >
               + Ask Question
             </Link>
+            <UserButton afterSignOutUrl="/" />
           </SignedIn>
 
-          {/* (Optional) show Sign In CTA instead of Ask when signed out */}
           <SignedOut>
             <SignInButton mode="modal">
-              <button className="hidden sm:inline-flex items-center text-sm px-3 py-1.5 rounded border border-blue-600 text-blue-700 hover:bg-blue-50">
-                Sign in to Ask
+              <button
+                title="Sign in to ask"
+                className="hidden sm:inline-flex items-center text-sm px-3 py-1.5 rounded border border-blue-600 text-blue-700 bg-white hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-blue-300"
+              >
+                Join and Ask
               </button>
             </SignInButton>
           </SignedOut>
 
-          {/* Universal hamburger */}
+          {/* Hamburger for mobile */}
           <button
             onClick={() => setMenuOpen(true)}
-            className="p-2 rounded hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="p-2 rounded hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-400 sm:ml-2"
             aria-label="Open menu"
             aria-expanded={menuOpen}
             aria-controls="site-drawer"
@@ -77,16 +106,22 @@ const Header = () => {
       {/* Drawer */}
       {menuOpen && (
         <>
-          <div className="fixed inset-0 bg-black/40 backdrop-blur-[1px]" onClick={() => setMenuOpen(false)} />
+          <div
+            className="fixed inset-0 bg-black/40 backdrop-blur-sm"
+            onClick={() => setMenuOpen(false)}
+            aria-hidden="true"
+          />
           <aside
             id="site-drawer"
             className="fixed right-0 top-0 h-full w-[90%] sm:w-[420px] bg-white shadow-2xl border-l flex flex-col"
             role="dialog"
             aria-modal="true"
+            aria-label="Main menu"
           >
+            {/* Drawer Header */}
             <div className="px-4 py-3 border-b flex items-center justify-between bg-[#fbfaf7]">
               <div className="flex items-center gap-2">
-                <img src={Logo} alt="Parenting Autism Together" className="h-10 w-auto object-contain" />
+                <img src={Logo} alt="Parenting Autism Together" className="h-10 w-auto object-contain" loading="lazy" />
                 <span className="font-semibold text-blue-800">Menu</span>
               </div>
               <button
@@ -100,45 +135,21 @@ const Header = () => {
               </button>
             </div>
 
-            <nav className="p-4 flex-1 overflow-y-auto">
-              <ul className="flex flex-col gap-2">
-                <li>
-                  <NavLink to="/" className={linkClasses} onClick={() => setMenuOpen(false)}>
-                    <span className="mr-2">{t("nav.homeEmoji")}</span> {t("nav.home")}
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink to="/about" className={linkClasses} onClick={() => setMenuOpen(false)}>
-                    <span className="mr-2">{t("nav.aboutAutismEmoji")}</span> {t("nav.aboutAutism")}
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink to="/home-activities" className={linkClasses} onClick={() => setMenuOpen(false)}>
-                    <span className="mr-2">{t("nav.homeActivitiesEmoji")}</span> {t("nav.homeActivities")}
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink to="/social-stories" className={linkClasses} onClick={() => setMenuOpen(false)}>
-                    <span className="mr-2">{t("nav.socialStoriesEmoji")}</span> {t("nav.socialStories")}
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink to="/govt-schemes" className={linkClasses} onClick={() => setMenuOpen(false)}>
-                    <span className="mr-2">{t("nav.govtSchemesEmoji")}</span> {t("nav.govtSchemes")}
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink to="/articles" className={linkClasses} onClick={() => setMenuOpen(false)}>
-                    <span className="mr-2">{t("nav.articlesEmoji")}</span> {t("nav.articles")}
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink to="/contact" className={linkClasses} onClick={() => setMenuOpen(false)}>
-                    <span className="mr-2">{t("nav.contactEmoji")}</span> {t("nav.contact")}
-                  </NavLink>
-                </li>
+            {/* Drawer Navigation */}
+            <nav className="p-4 flex-1 overflow-y-auto text-sm" role="navigation" aria-label="Drawer navigation">
+              <h3 className="uppercase text-gray-500 text-xs font-semibold mb-2">{t("nav.explore")}</h3>
+              <ul className="flex flex-col gap-2 mb-4">
+                <li><NavLink to="/" className={linkClasses} onClick={() => setMenuOpen(false)}>{t("nav.homeEmoji")} {t("nav.home")}</NavLink></li>
+                <li><NavLink to="/about" className={linkClasses} onClick={() => setMenuOpen(false)}>{t("nav.aboutAutismEmoji")} {t("nav.aboutAutism")}</NavLink></li>
+                <li><NavLink to="/home-activities" className={linkClasses} onClick={() => setMenuOpen(false)}>{t("nav.homeActivitiesEmoji")} {t("nav.homeActivities")}</NavLink></li>
+                <li><NavLink to="/social-stories" className={linkClasses} onClick={() => setMenuOpen(false)}>{t("nav.socialStoriesEmoji")} {t("nav.socialStories")}</NavLink></li>
+                <li><NavLink to="/govt-schemes" className={linkClasses} onClick={() => setMenuOpen(false)}>{t("nav.govtSchemesEmoji")} {t("nav.govtSchemes")}</NavLink></li>
+                <li><NavLink to="/articles" className={linkClasses} onClick={() => setMenuOpen(false)}>{t("nav.articlesEmoji")} {t("nav.articles")}</NavLink></li>
+              </ul>
 
-                {/* Ask Question (drawer) — only when signed in */}
+              <h3 className="uppercase text-gray-500 text-xs font-semibold mb-2">{t("nav.connect")}</h3>
+              <ul className="flex flex-col gap-2">
+                <li><NavLink to="/contact" className={linkClasses} onClick={() => setMenuOpen(false)}>{t("nav.contactEmoji")} {t("nav.contact")}</NavLink></li>
                 <SignedIn>
                   <li>
                     <Link
@@ -150,8 +161,6 @@ const Header = () => {
                     </Link>
                   </li>
                 </SignedIn>
-
-                {/* Signed out: show Sign In CTA instead */}
                 <SignedOut>
                   <li>
                     <SignInButton mode="modal">
@@ -159,35 +168,29 @@ const Header = () => {
                         onClick={() => setMenuOpen(false)}
                         className="w-full text-center text-sm px-3 py-2 rounded border border-blue-600 text-blue-700 hover:bg-blue-50"
                       >
-                        Sign in to Ask
+                       Join and Ask
                       </button>
                     </SignInButton>
                   </li>
                 </SignedOut>
               </ul>
 
-              <hr className="my-4" />
-
-              {/* language switcher */}
-              <div className="flex gap-3 items-center">
-                <span className="text-xs uppercase text-gray-500 tracking-wide">Language</span>
+              {/* Language fallback (mobile only) */}
+              <div className="mt-6">
+                <span className="block text-xs text-gray-500 mb-1">Language</span>
                 <div className="flex gap-2">
-                  <button onClick={() => changeLanguage("en")} className="text-sm px-3 py-1 rounded border hover:bg-gray-50">EN</button>
-                  <button onClick={() => changeLanguage("hi")} className="text-sm px-3 py-1 rounded border hover:bg-gray-50">हिंदी</button>
-                  <button onClick={() => changeLanguage("mr")} className="text-sm px-3 py-1 rounded border hover:bg-gray-50">म</button>
+                  {["en", "hi", "mr"].map((lng) => (
+                    <button
+                      key={lng}
+                      onClick={() => changeLanguage(lng)}
+                      className={`text-sm px-3 py-1 rounded-full ${
+                        currentLang === lng ? "bg-blue-600 text-white" : "bg-white border border-gray-200 text-gray-700"
+                      }`}
+                    >
+                      {lng === "en" ? "EN" : lng === "hi" ? "हिंदी" : "म"}
+                    </button>
+                  ))}
                 </div>
-              </div>
-
-              {/* auth section */}
-              <div className="mt-4 flex items-center gap-3">
-                <SignedOut>
-                  <SignInButton mode="modal">
-                    <button className="text-sm px-4 py-2 bg-blue-600 text-white rounded">Login / Sign up</button>
-                  </SignInButton>
-                </SignedOut>
-                <SignedIn>
-                  <UserButton afterSignOutUrl="/" />
-                </SignedIn>
               </div>
             </nav>
 
