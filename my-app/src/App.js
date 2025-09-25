@@ -21,7 +21,7 @@ function App() {
     
      <div className="min-h-screen flex flex-col">
      <Header />
-      <main className="flex-grow max-w-6xl mx-auto px-4 py-6 w-full">
+     <main className="flex-grow max-w-6xl mx-auto px-4 pt-2 pb-4 w-full">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
