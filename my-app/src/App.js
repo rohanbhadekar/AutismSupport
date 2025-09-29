@@ -13,8 +13,23 @@ import QaListPage from "./pages/QaListPage";
 import QuestionDetailPage from "./pages/QuestionDetailPage";
 import ArticlesList from "./pages/ArticlesList";
 import ArticlesDetails from "./pages/ArticleDetail";
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import { pageview } from "./analytics/ga";
 
 function App() {
+
+  const location = useLocation();
+
+  useEffect(() => {
+    pageview(location.pathname + location.search);
+     if (window.gtag) {
+      window.gtag("event", "page_view", {
+        page_path: location.pathname + location.search
+      });
+    }
+
+  }, [location.pathname, location.search]);
   
   return (
    

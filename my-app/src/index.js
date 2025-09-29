@@ -7,6 +7,7 @@ import FontWrapper from "./FontWrapper";
 import { BrowserRouter } from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
 import { ClerkProvider } from "@clerk/clerk-react";
+import { pageview } from "./analytics/ga";
 
 const PUBLISHABLE_KEY = process.env.REACT_APP_CLERK_PUBLISHABLE_KEY;
 const clerkFrontendApi = process.env.REACT_APP_CLERK_FRONTEND_API;
@@ -46,3 +47,10 @@ if ('serviceWorker' in navigator) {
     }
   });
 }
+
+export default function App() {
+  const location = useLocation();
+
+  useEffect(() => {
+    pageview(location.pathname + location.search);
+  }, [location.pathname, location.search]);
