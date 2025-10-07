@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { NavLink, Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import Logo from "../assets/ParentingAutismTogether_Logo.png";
@@ -7,40 +7,120 @@ import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-reac
 const Header = () => {
   const { t, i18n } = useTranslation();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [langOpen, setLangOpen] = useState(false);
+  const langBtnRef = useRef(null);
+  const langMenuRef = useRef(null);
 
   useEffect(() => {
-    const onKey = (e) => e.key === "Escape" && setMenuOpen(false);
+    const onKey = (e) => {
+      if (e.key === "Escape") {
+        setMenuOpen(false);
+        setLangOpen(false);
+      }
+    };
+    const onClickOutside = (e) => {
+      if (
+        langOpen &&
+        langMenuRef.current &&
+        langBtnRef.current &&
+        !langMenuRef.current.contains(e.target) &&
+        !langBtnRef.current.contains(e.target)
+      ) {
+        setLangOpen(false);
+      }
+    };
     window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, []);
+    window.addEventListener("mousedown", onClickOutside);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      window.removeEventListener("mousedown", onClickOutside);
+    };
+  }, [langOpen]);
 
   const linkClasses = ({ isActive }) =>
     `block text-sm font-medium px-4 py-2 rounded transition-all ${
       isActive ? "text-blue-700 bg-blue-100" : "text-gray-700 hover:bg-gray-100"
     }`;
 
-  const changeLanguage = (lng) => i18n.changeLanguage(lng);
+  const changeLanguage = (lng) => {
+    i18n.changeLanguage(lng);
+    setLangOpen(false);
+  };
+
+  const langs = [
+    { code: "en", label: "English", short: "EN" },
+    { code: "hi", label: "हिंदी", short: "हिं" },
+    { code: "mr", label: "मराठी", short: "म" },
+  ];
+
+  const current = langs.find((l) => i18n.language?.startsWith(l.code)) || langs[0];
 
   return (
     <header className="bg-[#fbfaf7] shadow-md border-b sticky top-0 z-50">
       <div className="max-w-screen-xl mx-auto px-4 py-3 flex items-center justify-between">
-        {/* Brand */}
+        {/* Brand + Lang dropdown */}
         <div className="flex items-center gap-3">
           <img src={Logo} alt="Parenting Autism Together" className="h-12 sm:h-16 w-auto object-contain p-1" />
           <span className="text-base sm:text-lg font-semibold tracking-wide text-blue-800">
-
-          <Link
-              to="/"         
-            >
-               Parenting&nbsp;Autism&nbsp;Together
-            </Link>
-           
+            <Link to="/">Parenting&nbsp;Autism&nbsp;Together</Link>
           </span>
+
+         
         </div>
 
         {/* Right: Ask (signed-in only) + Hamburger */}
         <div className="flex items-center gap-3">
-          {/* Ask Question (desktop) — only when signed in */}
+         {/* Language dropdown (next to title) */}
+          <div className="relative">
+            <button
+              ref={langBtnRef}
+              onClick={() => setLangOpen((o) => !o)}
+              className="inline-flex items-center gap-1 text-sm px-2 py-1 rounded border border-gray-300 hover:bg-gray-50"
+              aria-haspopup="menu"
+              aria-expanded={langOpen}
+              aria-controls="lang-menu"
+            >
+              <span className="hidden sm:inline text-gray-700">Language:</span>
+              <span className="font-medium">{current.short}</span>
+              <svg
+                className="h-4 w-4 text-gray-600"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M5.23 7.21a.75.75 0 011.06.02L10 11.187l3.71-3.956a.75.75 0 111.08 1.04l-4.24 4.52a.75.75 0 01-1.08 0l-4.24-4.52a.75.75 0 01.02-1.06z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </button>
+
+            {langOpen && (
+              <div
+                id="lang-menu"
+                ref={langMenuRef}
+                role="menu"
+                className="absolute left-0 mt-2 w-40 rounded-md border bg-white shadow-lg z-50"
+              >
+                <ul className="py-1">
+                  {langs.map((l) => (
+                    <li key={l.code}>
+                      <button
+                        onClick={() => changeLanguage(l.code)}
+                        role="menuitem"
+                        className={`w-full text-left px-3 py-2 text-sm hover:bg-gray-100 ${
+                          current.code === l.code ? "text-blue-700 font-medium" : "text-gray-800"
+                        }`}
+                      >
+                        {l.short} — {l.label}
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
           <SignedIn>
             <Link
               to="/qa"
@@ -50,7 +130,6 @@ const Header = () => {
             </Link>
           </SignedIn>
 
-          {/* (Optional) show Sign In CTA instead of Ask when signed out */}
           <SignedOut>
             <SignInButton mode="modal">
               <button className="hidden sm:inline-flex items-center text-sm px-3 py-1.5 rounded border border-blue-600 text-blue-700 hover:bg-blue-50">
@@ -59,7 +138,6 @@ const Header = () => {
             </SignInButton>
           </SignedOut>
 
-          {/* Universal hamburger */}
           <button
             onClick={() => setMenuOpen(true)}
             className="p-2 rounded hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-400"
@@ -138,7 +216,6 @@ const Header = () => {
                   </NavLink>
                 </li>
 
-                {/* Ask Question (drawer) — only when signed in */}
                 <SignedIn>
                   <li>
                     <Link
@@ -151,7 +228,6 @@ const Header = () => {
                   </li>
                 </SignedIn>
 
-                {/* Signed out: show Sign In CTA instead */}
                 <SignedOut>
                   <li>
                     <SignInButton mode="modal">
@@ -168,7 +244,7 @@ const Header = () => {
 
               <hr className="my-4" />
 
-              {/* language switcher */}
+              {/* (Keep) language quick-switch in drawer */}
               <div className="flex gap-3 items-center">
                 <span className="text-xs uppercase text-gray-500 tracking-wide">Language</span>
                 <div className="flex gap-2">
@@ -178,7 +254,6 @@ const Header = () => {
                 </div>
               </div>
 
-              {/* auth section */}
               <div className="mt-4 flex items-center gap-3">
                 <SignedOut>
                   <SignInButton mode="modal">
