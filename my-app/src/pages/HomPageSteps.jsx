@@ -1,21 +1,64 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, X } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 
 function HomePage() {
-  useEffect(() => {
-    const baseUrl = process.env.REACT_APP_API_BASE_URL;
-    if (!baseUrl) return;
-    fetch(`${baseUrl}/ping`)
-      .then(() => console.log("Service warmed up"))
-      .catch((err) => console.error("Ping failed:", err));
-  }, []);
+  // Persist across remounts (StrictMode/HMR)
+  const [serviceError, setServiceError] = useState(
+    () => sessionStorage.getItem("serviceError") === "1"
+  );
+  const [dismissed, setDismissed] = useState(
+    () => sessionStorage.getItem("serviceErrorDismissed") === "1"
+  );
 
   const { t } = useTranslation();
   const navigate = useNavigate();
+
+  // Prevent dev double-effect runs in React 18 StrictMode
+  const didRun = useRef(false);
+
+  useEffect(() => {
+    if (didRun.current) return;
+    didRun.current = true;
+
+    const baseUrl = process.env.REACT_APP_API_BASE_URL;
+
+    // If API base URL missing (common misconfig on mobile/prod) => show banner
+    if (!baseUrl) {
+      setServiceError(true);
+      sessionStorage.setItem("serviceError", "1");
+      return;
+    }
+
+    // Timeout to surface slow/hanging mobile network failures
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 4000); // 4s
+
+    (async () => {
+      try {
+        const res = await fetch(`${baseUrl}/ping`, {
+          cache: "no-store",
+          signal: controller.signal,
+        });
+        if (!res.ok) throw new Error(`Ping failed: ${res.status}`);
+        // success: no-op
+      } catch (err) {
+        console.error("Ping failed:", err);
+        setServiceError(true);
+        sessionStorage.setItem("serviceError", "1");
+      } finally {
+        clearTimeout(timeoutId);
+      }
+    })();
+  }, []);
+
+  const handleDismiss = () => {
+    setDismissed(true);
+    sessionStorage.setItem("serviceErrorDismissed", "1");
+  };
 
   const features = [
     {
@@ -70,22 +113,47 @@ function HomePage() {
         <link rel="canonical" href="https://parentingautismtogether.in/" />
       </Helmet>
 
+      {/* ⚠️ Service error banner (mobile-safe, persists, closable) */}
+      {serviceError && !dismissed && (
+        <div className="mb-4 p-3 rounded-md bg-red-50 border border-red-200 text-red-700 text-sm flex justify-between items-start">
+         
+             <div>
+            ⚠️ {
+              "Some sections like Activities and Social Stories may not load properly right now due to a service issue. Please try again after 2 mins."}
+          </div>
+         
+          <button
+            onClick={handleDismiss}
+            className="ml-3 text-red-600 hover:text-red-800"
+            aria-label="Close alert"
+          >
+            <X className="h-4 w-4" />
+          </button>
+        </div>
+      )}
+
       {/* Hero */}
-<header className="text-center mb-8">
-  <h1 className="mt-0 text-2xl sm:text-3xl md:text-4xl font-bold">{t("hero.heading")}</h1>
-  <div className="text-gray-700 text-base leading-relaxed text-left max-w-5xl mx-auto">
-    <ReactMarkdown
-      components={{
-        strong: ({ children }) => <strong className="font-semibold">{children}</strong>,
-        ul: ({ children }) => <ul className="list-disc pl-6 space-y-1">{children}</ul>,
-        li: ({ children }) => <li>{children}</li>,
-        p: ({ children }) => <p className="mb-2">{children}</p>
-      }}
-    >
-      {t("hero.intro")}
-    </ReactMarkdown>
-  </div>
-</header>
+      <header className="text-center mb-8">
+        <h1 className="mt-0 text-2xl sm:text-3xl md:text-4xl font-bold">
+          {t("hero.heading")}
+        </h1>
+        <div className="text-gray-700 text-base leading-relaxed text-left max-w-5xl mx-auto">
+          <ReactMarkdown
+            components={{
+              strong: ({ children }) => (
+                <strong className="font-semibold">{children}</strong>
+              ),
+              ul: ({ children }) => (
+                <ul className="list-disc pl-6 space-y-1">{children}</ul>
+              ),
+              li: ({ children }) => <li>{children}</li>,
+              p: ({ children }) => <p className="mb-2">{children}</p>,
+            }}
+          >
+            {t("hero.intro")}
+          </ReactMarkdown>
+        </div>
+      </header>
 
       {/* Feature cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
